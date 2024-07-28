@@ -1,0 +1,201 @@
+{
+  "main": {
+    "id": "e305977b0aa42445",
+    "type": "split",
+    "children": [
+      {
+        "id": "54a57ffa1053ceb8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "231fe8ada8b31a87",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "C++ Notes/Interview C++ template/Architecture and Design.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a3d86595fcb8f3d2",
+    "type": "split",
+    "children": [
+      {
+        "id": "d3cf51dd597c0b01",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "72ace6e83e39d30e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e170416c00e1399a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "d112b72f493e5556",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300.5
+  },
+  "right": {
+    "id": "127d54cf6ee62ffe",
+    "type": "split",
+    "children": [
+      {
+        "id": "15fe5e97fcfa4edc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4b1d42335429734f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "C++ Notes/Interview C++ template/Architecture and Design.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "be84d67311d45e42",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "C++ Notes/Interview C++ template/Architecture and Design.md",
+                "linksCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "0f55f367857c21cf",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "7fd98d3267b263a1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "C++ Notes/Interview C++ template/Architecture and Design.md"
+              }
+            }
+          },
+          {
+            "id": "2e281c1612b44da4",
+            "type": "leaf",
+            "state": {
+              "type": "side-panel-control-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 318.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false,
+      "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
+    }
+  },
+  "active": "72ace6e83e39d30e",
+  "lastOpenFiles": [
+    "C++ Notes/Luxoft C++ template/Untitled.md",
+    "C++ Notes/Interview C++ template/Architecture and Design.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
+    "C++ Notes/Jason Turner - CPP weakly/125. Return optimization.md",
+    "Grimoire_pc_cover.png",
+    "C++ Notes/Jason Turner - CPP weakly",
+    "README.md",
+    "C++ Notes/The Cherno series/C++/Small string.md",
+    "C++ Notes/The Cherno series/C++/string_view (c++17).md",
+    "C++ Notes/The Cherno series/C++/any (c++17).md",
+    "C++ Notes/The Cherno series/C++/variant (c++17).md",
+    "C++ Notes/The Cherno series/C++/Union.md",
+    "C++ Notes/The Cherno series/C++/Optional (c++17).md",
+    "C++ Notes/The Cherno series/C++/Structured bindings (c++17).md",
+    "C++ Notes/The Cherno series/C++/Преобразование типов.md",
+    "C++ Notes/The Cherno series/C++/Type punning.md",
+    "C++ Notes/The Cherno series/C++/Template.md",
+    "C++ Notes/The Cherno series/C++/Virtual destructor.md",
+    "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
+    "C++ Notes/The Cherno series/C++/Виртуальные методы.md",
+    "C++ Notes/Interview C++ template/Basic C++.md",
+    "C++ Notes/Interview C++ template/Coding task and algorithms.md",
+    "Untitled.md",
+    "C++ Notes/Interview C++ template/Unix and networking.md",
+    "C++ Notes/Interview C++ template/Error handling & Exceptions.md",
+    "C++ Notes/Interview C++ template/UNIT Testing.md",
+    "C++ Notes/Interview C++ template/Multithreading.md",
+    "C++ Notes/Interview C++ template/Modern C++.md",
+    "C++ Notes/Interview C++ template",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи",
+    "C++ Notes/The Cherno series/Untitled",
+    "Untitled 1.canvas",
+    "Untitled.canvas",
+    "C++ Notes/The Cherno series/C++",
+    "C++ Notes/The Cherno series",
+    "C++ Notes/Internet stuff",
+    "C++ Notes",
+    "Pasted image 20240523140325.png"
+  ]
+}
