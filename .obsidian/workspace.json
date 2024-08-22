@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/Interview C++ template/Architecture and Design.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/Interview C++ template/Architecture and Design.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/Interview C++ template/Architecture and Design.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/Interview C++ template/Architecture and Design.md"
+                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md"
               }
             }
           },
@@ -137,12 +137,12 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 318.5
+    "width": 318.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -155,11 +155,21 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "72ace6e83e39d30e",
+  "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
+    "C++ Notes/The Cherno series/OpenGL/Vertex Attributes and Layouts.md",
+    "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
+    "C++ Notes/The Cherno series/OpenGL/How Shaders Work.md",
+    "C++ Notes/cppcon/105 STL Algorithms in Less Than an Hour - Joathan Boccara - CppCon 2018.md",
+    "C++ Notes/The Cherno series/OpenGL",
+    "C++ Notes/cppcon/Writing Good C++14 - Bjarne Stroustrup -  CppCon 2015.md",
+    "C++ Notes/Interview C++ template/Architecture and Design.md",
+    "C++ Notes/cppcon",
+    "C++ Notes/_Generic/Notes.md",
+    "C++ Notes/_Generic",
+    "C++ Notes/Jason Turner - CPP weakly/441. Multiple Dispatch.md",
     "README.md~",
     "C++ Notes/Luxoft C++ template/Untitled.md",
-    "C++ Notes/Interview C++ template/Architecture and Design.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
     "C++ Notes/Jason Turner - CPP weakly/125. Return optimization.md",
@@ -180,22 +190,13 @@
     "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
     "C++ Notes/The Cherno series/C++/Виртуальные методы.md",
     "C++ Notes/Interview C++ template/Basic C++.md",
-    "C++ Notes/Interview C++ template/Coding task and algorithms.md",
-    "Untitled.md",
-    "C++ Notes/Interview C++ template/Unix and networking.md",
-    "C++ Notes/Interview C++ template/Error handling & Exceptions.md",
-    "C++ Notes/Interview C++ template/UNIT Testing.md",
-    "C++ Notes/Interview C++ template/Multithreading.md",
     "C++ Notes/Interview C++ template",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Джош Лоспинозо. С++ для Профи",
-    "C++ Notes/The Cherno series/Untitled",
     "Untitled 1.canvas",
     "Untitled.canvas",
     "C++ Notes/The Cherno series/C++",
     "C++ Notes/The Cherno series",
-    "C++ Notes/Internet stuff",
-    "C++ Notes",
     "Pasted image 20240523140325.png"
   ]
 }
