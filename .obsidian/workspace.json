@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md"
+                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md"
               }
             }
           },
@@ -146,20 +146,21 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "markdown-importer:Open format converter": false,
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "templates:Вставить шаблон": false,
+      "command-palette:Открыть палитру команд": false,
+      "markdown-importer:Импорт Markdown-файлов": false,
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/Vertex Attributes and Layouts.md",
-    "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
     "C++ Notes/The Cherno series/OpenGL/How Shaders Work.md",
+    "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
+    "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
+    "C++ Notes/The Cherno series/OpenGL/Vertex Attributes and Layouts.md",
     "C++ Notes/cppcon/105 STL Algorithms in Less Than an Hour - Joathan Boccara - CppCon 2018.md",
     "C++ Notes/The Cherno series/OpenGL",
     "C++ Notes/cppcon/Writing Good C++14 - Bjarne Stroustrup -  CppCon 2015.md",
@@ -189,7 +190,6 @@
     "C++ Notes/The Cherno series/C++/Virtual destructor.md",
     "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
     "C++ Notes/The Cherno series/C++/Виртуальные методы.md",
-    "C++ Notes/Interview C++ template/Basic C++.md",
     "C++ Notes/Interview C++ template",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Джош Лоспинозо. С++ для Профи",
