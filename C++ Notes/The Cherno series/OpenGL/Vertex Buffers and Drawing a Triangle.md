@@ -1,7 +1,7 @@
 So for drawing a triangle with modern OpenGL requires vertex buffer and shader. 
-Vertex buffer is just a buffer, vertex in name is almost meaningless. It's just blob of video card memory in which we can push bytes. After pushing data in buffer - before we call draw function we need to specify how to ineprete that data and how put it on screen. 
-Shader - is program on GPU in which we describe how to intepret and work with data. 
-OpenGL work as state machine: drawing process looks like "select this buffer, load such amout of bytes, select this shader, draw". 
+Vertex buffer is just a buffer, vertex in name is almost meaningless. It's just blob of video card memory in which we can push bytes. After pushing data in buffer - before we call draw function we need to specify how to inexpert that data and how put it on screen. 
+Shader - is program on GPU in which we describe how to interpret and work with data. 
+OpenGL work as state machine: drawing process looks like "select this buffer, load such amount of bytes, select this shader, draw". 
 
 1. Create buffer ([glGenBuffers](https://docs.gl/gl4/glGenBuffers))
 ```c++
@@ -48,17 +48,17 @@ glBufferData(GL_ARRAY_BUFFER,
 * `DYNAMIC` - contents will be modified once and used many times (modify every frame and draw every frame?)
 and `<access>`: `DRAW`, `READ`, `COPY`
 
-At current point for OpenGL data is just something like `void*` - it doesn't have context how to separate bytes, how intepreate it etc. And vertex data not always 2 floats - vertex != coordinates and can contain different data (like norms, color etc.). 
+At current point for OpenGL data is just something like `void*` - it doesn't have context how to separate bytes, how intemperate it etc. And vertex data not always 2 floats - vertex != coordinates and can contain different data (like norms, color etc.). 
 
 First we need [glVertexAttribPointer](https://docs.gl/gl4/glVertexAttribPointer):
 * `GLuint index` - index of the generic vertex attribute to be modified. It's used by shader and provide index attribute (for triangle we have 3 vertices and each vertex have 2 attributes). 
-* `GLint size` - number of attributes must be 1, 2, 3, 4. It's not size in byts, it's count per one vertex (for triangle example = 2)
+* `GLint size` - number of attributes must be 1, 2, 3, 4. It's not size in bytes, it's count per one vertex (for triangle example = 2)
 * `GLenum type` - type of data (GL_FLOAT, GL_BYTE etc)
 * `GLboolean normalized` - specifies should data be normalized (GL_TRUE) or converted directly as fixed-point values (GL_FALSE) when they are accessed
 * `GLsizei stride` - amount of bytes between each vertex. In general - size in bytes of each vertex (2 * sizeof(float) for triangle)
 * `const GLvoid* pointer` - simply offset in bytes where attribute in buffer beggins (GLintptr vertex_texcoord_offset = 3 * sizeof(float); pointer = (GLvoid*)vertex_texcoord_offset). Normally layout stored in `struct` and used macro `offsetof`). 
 
-And now we need to enable that attribe with [glEnableVertexAttribArray](https://docs.gl/gl4/glEnableVertexAttribArray), providing index from glVertexAttrivPoiner
+And now we need to enable that attrib with [glEnableVertexAttribArray](https://docs.gl/gl4/glEnableVertexAttribArray), providing index from glVertexAttrivPoiner
 ```c++
 glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr);
 glEnableVertexAttribArray(0);
