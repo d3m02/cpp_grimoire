@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
+                "file": "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
+                "file": "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
+                "file": "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Index buffers.md"
+                "file": "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md"
               }
             }
           },
@@ -146,27 +146,40 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Меню быстрого перехода": false,
-      "graph:Граф": false,
-      "canvas:Создать новый холст": false,
-      "templates:Вставить шаблон": false,
-      "command-palette:Открыть палитру команд": false,
-      "markdown-importer:Импорт Markdown-файлов": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false,
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/How Shaders Work.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Именованные преобразования.md",
+    "C++ Notes/_Generic/Notes.md",
+    "C++ Notes/Interview C++ template/UNIT Testing.md",
+    "C++ Notes/Interview C++ template/Basic C++.md",
+    "C++ Notes/Interview C++ template/Architecture and Design.md",
+    "C++ Notes/Internet stuff/RAII.md",
+    "C++ Notes/Internet stuff/Что нельзя перегружать.md",
+    "C++ Notes/Internet stuff/import instead include.md",
+    "C++ Notes/Internet stuff/Ромбовидное наследование.md",
+    "C++ Notes/Internet stuff/Правило трех, пяти, нуля, шести.md",
+    "C++ Notes/Internet stuff/Наследование, композиция, агрегация.md",
+    "C++ Notes/Internet stuff/Инкапсуляция.md",
+    "C++ Notes/cppcon/Writing Good C++14 - Bjarne Stroustrup -  CppCon 2015.md",
+    "C++ Notes/The Cherno series/OpenGL/Error handling.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Buffers and Drawing a Triangle.md",
     "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
+    "C++ Notes/The Cherno series/C++/move and move assignment operator.md",
+    "C++ Notes/The Cherno series/C++/Move semantics.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Attributes and Layouts.md",
+    "C++ Notes/The Cherno series/OpenGL/How Shaders Work.md",
     "C++ Notes/cppcon/105 STL Algorithms in Less Than an Hour - Joathan Boccara - CppCon 2018.md",
     "C++ Notes/The Cherno series/OpenGL",
-    "C++ Notes/cppcon/Writing Good C++14 - Bjarne Stroustrup -  CppCon 2015.md",
-    "C++ Notes/Interview C++ template/Architecture and Design.md",
     "C++ Notes/cppcon",
-    "C++ Notes/_Generic/Notes.md",
     "C++ Notes/_Generic",
     "C++ Notes/Jason Turner - CPP weakly/441. Multiple Dispatch.md",
     "README.md~",
@@ -177,19 +190,6 @@
     "Grimoire_pc_cover.png",
     "C++ Notes/Jason Turner - CPP weakly",
     "README.md",
-    "C++ Notes/The Cherno series/C++/Small string.md",
-    "C++ Notes/The Cherno series/C++/string_view (c++17).md",
-    "C++ Notes/The Cherno series/C++/any (c++17).md",
-    "C++ Notes/The Cherno series/C++/variant (c++17).md",
-    "C++ Notes/The Cherno series/C++/Union.md",
-    "C++ Notes/The Cherno series/C++/Optional (c++17).md",
-    "C++ Notes/The Cherno series/C++/Structured bindings (c++17).md",
-    "C++ Notes/The Cherno series/C++/Преобразование типов.md",
-    "C++ Notes/The Cherno series/C++/Type punning.md",
-    "C++ Notes/The Cherno series/C++/Template.md",
-    "C++ Notes/The Cherno series/C++/Virtual destructor.md",
-    "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
-    "C++ Notes/The Cherno series/C++/Виртуальные методы.md",
     "C++ Notes/Interview C++ template",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Джош Лоспинозо. С++ для Профи",
