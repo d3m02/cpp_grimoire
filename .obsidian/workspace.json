@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Texture.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Math.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Texture.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Math.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Texture.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Math.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,24 +125,24 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Texture.md"
+                "file": "C++ Notes/The Cherno series/OpenGL/Math.md"
               }
             }
           },
           {
-            "id": "2e281c1612b44da4",
+            "id": "b67505c7710e3e23",
             "type": "leaf",
             "state": {
               "type": "side-panel-control-view",
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 318.5,
-    "collapsed": true
+    "width": 318.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -155,10 +155,12 @@
       "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
     }
   },
-  "active": "72ace6e83e39d30e",
+  "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/Vertex Buffers.md",
+    "C++ Notes/The Cherno series/OpenGL/Blending.md",
+    "C++ Notes/The Cherno series/OpenGL/Math.md",
     "C++ Notes/The Cherno series/OpenGL/Texture.md",
+    "C++ Notes/The Cherno series/OpenGL/Vertex Buffers.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex arrays.md",
     "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
@@ -181,11 +183,9 @@
     "C++ Notes/The Cherno series/C++/Move semantics.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Attributes and Layouts.md",
     "C++ Notes/The Cherno series/OpenGL/How Shaders Work.md",
-    "C++ Notes/cppcon/105 STL Algorithms in Less Than an Hour - Joathan Boccara - CppCon 2018.md",
     "C++ Notes/The Cherno series/OpenGL",
     "C++ Notes/cppcon",
     "C++ Notes/_Generic",
-    "C++ Notes/Jason Turner - CPP weakly/441. Multiple Dispatch.md",
     "README.md~",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
     "Grimoire_pc_cover.png",
