@@ -157,8 +157,9 @@
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/Blending.md",
+    "C++ Notes/The Cherno series/OpenGL/Projections.md",
     "C++ Notes/The Cherno series/OpenGL/Math.md",
+    "C++ Notes/The Cherno series/OpenGL/Blending.md",
     "C++ Notes/The Cherno series/OpenGL/Texture.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Buffers.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex arrays.md",
@@ -182,7 +183,6 @@
     "C++ Notes/The Cherno series/C++/move and move assignment operator.md",
     "C++ Notes/The Cherno series/C++/Move semantics.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Attributes and Layouts.md",
-    "C++ Notes/The Cherno series/OpenGL/How Shaders Work.md",
     "C++ Notes/The Cherno series/OpenGL",
     "C++ Notes/cppcon",
     "C++ Notes/_Generic",
