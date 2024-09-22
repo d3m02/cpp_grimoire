@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Math.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
                 "mode": "source",
                 "source": false
               }
@@ -65,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Math.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Math.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Math.md"
+                "file": "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md"
               }
             }
           },
@@ -157,8 +158,8 @@
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/Projections.md",
     "C++ Notes/The Cherno series/OpenGL/Math.md",
+    "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
     "C++ Notes/The Cherno series/OpenGL/Blending.md",
     "C++ Notes/The Cherno series/OpenGL/Texture.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Buffers.md",
