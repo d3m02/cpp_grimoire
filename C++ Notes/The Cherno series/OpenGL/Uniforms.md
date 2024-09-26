@@ -25,3 +25,9 @@ void main()
 assert(location != -1);
 glUniform4f(location, 0.2F, 0.3F, 0.8F, 1.0F);
 ```
+
+As mentioned above, uniforms set per draw and after binding shader, we retrieve uniform location via [glGetUniformLocation](https://docs.gl/gl4/glGetUniformLocation) and then use [glUniform](https://docs.gl/gl4/glUniform). This not so optimal and there are some other methods to retain that location from shader and take advantage of that once uniform retrieved and once we compiled shader - we've got shader object on GPU and shader knows about all uniforms that are contained and valid.
+
+Some serious game engines can read shaders code before compiling it and determine what to do with that (like make list of found uniforms and request their location during shader compilation). 
+
+So as simple solution when can implement this partially by just caching uniforms location. 
