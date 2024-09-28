@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300.5
+    "width": 300.5,
+    "collapsed": true
   },
   "right": {
     "id": "127d54cf6ee62ffe",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
+                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Uniforms.md"
+                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md"
               }
             }
           },
@@ -157,8 +158,9 @@
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/Making uniforms faster.md",
     "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
+    "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
+    "C++ Notes/The Cherno series/OpenGL/Making uniforms faster.md",
     "C++ Notes/The Cherno series/OpenGL/Texture.md",
     "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
     "C++ Notes/The Cherno series/OpenGL/Math.md",
@@ -182,7 +184,6 @@
     "C++ Notes/The Cherno series/OpenGL/Error handling.md",
     "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
     "C++ Notes/The Cherno series/C++/move and move assignment operator.md",
-    "C++ Notes/The Cherno series/C++/Move semantics.md",
     "C++ Notes/The Cherno series/OpenGL",
     "C++ Notes/cppcon",
     "C++ Notes/_Generic",
