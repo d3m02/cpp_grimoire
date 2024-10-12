@@ -11,8 +11,17 @@
             "id": "231fe8ada8b31a87",
             "type": "leaf",
             "state": {
+<<<<<<< HEAD
               "type": "empty",
               "state": {}
+=======
+              "type": "markdown",
+              "state": {
+                "file": "C++ Notes/CppCon and similar/Classic STL.md",
+                "mode": "source",
+                "source": false
+              }
+>>>>>>> 0773d71 (cppCon: Classic STL)
             }
           }
         ]
@@ -81,6 +90,10 @@
             "state": {
               "type": "backlink",
               "state": {
+<<<<<<< HEAD
+=======
+                "file": "C++ Notes/CppCon and similar/Classic STL.md",
+>>>>>>> 0773d71 (cppCon: Classic STL)
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +110,10 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+<<<<<<< HEAD
+=======
+                "file": "C++ Notes/CppCon and similar/Classic STL.md",
+>>>>>>> 0773d71 (cppCon: Classic STL)
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +135,13 @@
             "type": "leaf",
             "state": {
               "type": "outline",
+<<<<<<< HEAD
               "state": {}
+=======
+              "state": {
+                "file": "C++ Notes/CppCon and similar/Classic STL.md"
+              }
+>>>>>>> 0773d71 (cppCon: Classic STL)
             }
           },
           {
@@ -149,8 +172,13 @@
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
+<<<<<<< HEAD
     "C++ Notes/CppCon and similar/Classic STL.md",
     "C++ Notes/CppCon and similar/res/Pasted image 20241009150031.png",
+=======
+    "C++ Notes/CppCon and similar/res/Pasted image 20241009150031.png",
+    "C++ Notes/CppCon and similar/Classic STL.md",
+>>>>>>> 0773d71 (cppCon: Classic STL)
     "C++ Notes/CppCon and similar/res/Pasted image 20241009134044.png",
     "C++ Notes/CppCon and similar/res",
     "C++ Notes/CppCon and similar/Understanding Value Categories.md",
