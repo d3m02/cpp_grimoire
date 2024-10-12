@@ -1,4 +1,6 @@
-> Disclaimer: it's just what I found intresting/usefull for myself, not full conspect of record.
+>[CppCon 2015: Bjarne Stroustrup “Writing Good C++14”](https://youtu.be/1OEu9C51K2A?si=mZs5JN17QzawT4SR)
+
+> Disclaimer: it's just what I found interesting/useful for myself, not full conspectus of record.
 
 ## Dangling pointer problem
 Problem where  delete called with pointer where function is not owning pointer. It general ownership problem is about when pointer can be used without doubts that it was deleted.

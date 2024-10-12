@@ -1,48 +1,49 @@
+> [CppCon 2018: Jonathan Boccara “105 STL Algorithms in Less Than an Hour”](https://youtu.be/2olsGf6JIkU?si=2L_SwDCJBcF2893y)
 ## Permutations 
-it's algorithm that rearange\move around elements without modifying them
+it's algorithm that rearrange / move around elements without modifying them
 ### Heaps 
-Heap - is tree structer where childrens always less then parents. 
+Heap - is tree structure where children always less then parents. 
 ```
                  /  [9]     \
            /   [8]  \    / [6] \ 
          /[7]\     /[4] [5]   [2] 
        [0]   [3]  [1]  
 ```
-Heaps can be converted into array `[9][8][6][7][4][5][2][0][3][1]` and childrens can be access by multiplying index by 2. 
-+ `std::make_heap(begin(numbers), end(numbers))` - meake from numbers array a heap
+Heaps can be converted into array `[9][8][6][7][4][5][2][0][3][1]` and children can be access by multiplying index by 2. 
++ `std::make_heap(begin(numbers), end(numbers))` - make from numbers array a heap
 + `std::push_heap(begin(numbers), end(numbers))` - add element into heap. First(?) add new element in back `numbers.push_back(8.88)` and then rebalance array in proper order. 
 + `std::pop_heap(begin(numbers), end(numbers))`  - get first element (which will be maximum element in that collection),  swap first and last elements and rebalanced heap. Then with `numbers.pop_back()` possible to remove element or if not remove and continue - we get sorted collection.
 + `std::sort_heap` - sort heap. 
 ### Sorting 
 + `std::sort` - regular collection sort.
-+ `std::partial_sort` - sort from beggining till specified possition, rest will be in unsorted order. 
-+ `std::nth_element` - point in nth possition element that would be there if whole collection was sorted and put on left - everting that is smaller and on the right - what is bigger (in unspecified order both) 
++ `std::partial_sort` - sort from beginning till specified position, rest will be in unsorted order. 
++ `std::nth_element` - point in nth position element that would be there if whole collection was sorted and put on left - everting that is smaller and on the right - what is bigger (in unspecified order both) 
 + `std::inplace_merge` - take two sorted collections and merge them in one sorted collection? 
 ### Partitioning 
-`std::partition` - look at set throught predicat (some boolean criteria) and put at the beggining everything that satisfy true evaluation and not satisfy after at the end. 
+`std::partition` - look at set through predicate (some boolean criteria) and put at the beginning everything that satisfy true evaluation and not satisfy after at the end. 
 + `std::partition_point` - boarder between two subsets, end of 'true' range and begging of 'false' range 
    `1  3  5` 2  4
            ^  - partition_point
 ### Other permutations
-+ `std::rotate` - take last elemnt and put it in the front 
-+ `std::shuffle` - rearange collaction in random order. 
-+ `std::next_permutation` and `std::prev_permutation` - rearange to next\previous permutations
-+ `std::reverse` - rearange in backward order 
++ `std::rotate` - take last element and put it in the front 
++ `std::shuffle` - rearrange collection in random order. 
++ `std::next_permutation` and `std::prev_permutation` - rearrange to next\previous permutations
++ `std::reverse` - rearrange in backward order 
 
 ## Secret runes 
 Things, that can be combined with rest algorithms to generate new algorithm
 ### Partioning-sort-heap
 + `stable_*` (`std::stable_sort`, `std::stable_partition`) - keep relative order. 
 + `is_*` (`is_heap`, `is_sorted`) - returns boolean in case if algorithm will not make changes
-+ `is_*_until` (`is_partitioned_until`) - return iterator that the first position where that pradicat doesn't hold anymore? 
++ `is_*_until` (`is_partitioned_until`) - return iterator that the first position where that pradicate doesn't hold anymore? 
 + `*_copy` (`std::remove_copy`, `rotate_copy`,`partial_sort_copy`) - do some algorithm but in new collection. 
 + `*_n` (`std::copy_n`, `std::destroy_n`, `std::search_n`) - take begin and size.
 + `*_if` (`find_if/find_if_not`, `remove_if`, `copy_if`) - as a predicate 
 
 ## Queries
-Algorithms that doesn't change anything but more likely extracat value.
+Algorithms that doesn't change anything but more likely extract value.
 ### Numeric algorithms 
-+ `std::count` - return how many times some value accure in collection 
++ `std::count` - return how many times some value acquire in collection 
 + `std::accumulate` - returns sum of elements (or any custom function?) 
 + `std::reduce` - same as accumulate, but a little different interface, like 'no initial value?' and can run in parallel
 + `std::transform_reduce` - takes some function and apply before calling reduce. 
@@ -52,7 +53,7 @@ Algorithms that doesn't change anything but more likely extracat value.
 + `std::adjacent_difference` - return difference between two neighbors elements `(0-1, 1-2, 2-3, 3-4`) 
 + `std::sample` - takes amount `n` and return randomly selected `n` elements
 ### Querying a property
-+ `std::all_of` - takes collection and predicat and returns true if all elements satisfy predicat. For empty collection return true. 
++ `std::all_of` - takes collection and predicate and returns true if all elements satisfy predicate. For empty collection return true. 
 + `std::any_of` - takes predicat and return true if at least one element satisfy predicat. With empty collection return false.
 + `std::none_of` - non of elements satisfy predicat. With empty collaction return true.
 
@@ -75,9 +76,9 @@ Algorithms that doesn't change anything but more likely extracat value.
  std::lower_bound |     |- std::upper_bound  
 ``` 
 
-+ `std::binary_search` - takes collaction and value and return boolean is value in collaction or not. 
++ `std::binary_search` - takes collection and value and return boolean is value in collection or not. 
 
-### Searching a ragne 
+### Searching a range 
  + `std::search` - find range \[3 5 2\] in \[1 2 7 `3 5 2` 1 5 3 5 2\]`
  + `std::find_end` - same as search, but from end  \[1 2 7 3 5 2 1 5 `3 5 2`]`
 + `std::find_first_of` - find any first match from range \[5 2 3] in  \[1 `2` 7 3 5 2 1 5 3 5 2\]`
@@ -87,7 +88,7 @@ Algorithms that doesn't change anything but more likely extracat value.
 + `std::minmax_element` - return max and min element as `std::pair<iterator, interator>`
 
 ## Algorithms on Sets 
-Set - any sorted collaction
+Set - any sorted collection 
 + `std::set_defference (begin(a), end(a); begin(b), end(b), std::back_inserter(results))` -  return elements that in set A, but not in set B. And it's in linear complexity
 + `std::set_intersection` - returns elements that in both sets.
 + `std::set_union` - return all elements from A and B
@@ -103,11 +104,11 @@ Move ranges around.
 + `std::copy_backward`/`std::move_backward` - copy first range \[1 2 3 4 5 6 7 8 9 10\] in such way that result will be \[1 2 3 1 2 3 4 5 9 10\]
 
 ## Value modifiers
-they can change data inside collaction
-+ `std::fill(first, last, value)` - puts value in every element of collaction 
-+ `std::generata(first, last, f)` - call function (without arguments) for every element of collaction 
-+ `std::iota(first, last, value)` - put value at the beggining and call val++ for every next element.
-+ `std::replace(first, last, exist_value, new_value)` - well, replace what exist_value in collaction with new_value.
+they can change data inside collection
++ `std::fill(first, last, value)` - puts value in every element of collection 
++ `std::generata(first, last, f)` - call function (without arguments) for every element of collection 
++ `std::iota(first, last, value)` - put value at the beginning and call val++ for every next element.
++ `std::replace(first, last, exist_value, new_value)` - well, replace what exist_value in collection with new_value.
 
 ## Structure changers
 note that algorithms operate with iterators, thus they can't changes size
