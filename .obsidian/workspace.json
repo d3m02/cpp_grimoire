@@ -11,12 +11,8 @@
             "id": "231fe8ada8b31a87",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -69,8 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300.5,
-    "collapsed": true
+    "width": 300.5
   },
   "right": {
     "id": "127d54cf6ee62ffe",
@@ -86,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md"
-              }
+              "state": {}
             }
           },
           {
@@ -158,8 +149,27 @@
   },
   "active": "231fe8ada8b31a87",
   "lastOpenFiles": [
-    "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
+    "C++ Notes/CppCon and similar/Classic STL.md",
+    "C++ Notes/CppCon and similar/res/Pasted image 20241009150031.png",
+    "C++ Notes/CppCon and similar/res/Pasted image 20241009134044.png",
+    "C++ Notes/CppCon and similar/res",
+    "C++ Notes/CppCon and similar/Understanding Value Categories.md",
+    "C++ Notes/Interview C++ template/Basic C++.md",
+    "C++ Notes/Interview C++ template/Coding task and algorithms.md",
+    "C++ Notes/Interview C++ template/Error handling & Exceptions.md",
+    "C++ Notes/Interview C++ template/Memory.md",
+    "C++ Notes/Interview C++ template/OOP + Data structures.md",
+    "C++ Notes/Interview C++ template/Unix and networking.md",
+    "C++ Notes/Interview C++ template/Architecture and Design.md",
+    "C++ Notes/Interview C++ template/Modern C++.md",
+    "C++ Notes/CppCon and similar/Efficiency with Algorithms, Performance with Data Structures.md",
+    "C++ Notes/CppCon and similar/105 STL Algorithms in Less Than an Hour.md",
+    "C++ Notes/Internet stuff/Наследование, композиция, агрегация.md",
+    "C++ Notes/Internet stuff/Инкапсуляция.md",
+    "C++ Notes/_Generic/Notes.md",
+    "C++ Notes/CppCon and similar/Writing Good C++14.md",
     "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
+    "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
     "C++ Notes/The Cherno series/OpenGL/Making uniforms faster.md",
     "C++ Notes/The Cherno series/OpenGL/Texture.md",
     "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
@@ -167,25 +177,8 @@
     "C++ Notes/The Cherno series/OpenGL/Blending.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex Buffers.md",
     "C++ Notes/The Cherno series/OpenGL/Vertex arrays.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Именованные преобразования.md",
-    "C++ Notes/_Generic/Notes.md",
-    "C++ Notes/Interview C++ template/UNIT Testing.md",
-    "C++ Notes/Interview C++ template/Basic C++.md",
-    "C++ Notes/Interview C++ template/Architecture and Design.md",
-    "C++ Notes/Internet stuff/RAII.md",
-    "C++ Notes/Internet stuff/Что нельзя перегружать.md",
-    "C++ Notes/Internet stuff/import instead include.md",
-    "C++ Notes/Internet stuff/Ромбовидное наследование.md",
-    "C++ Notes/Internet stuff/Правило трех, пяти, нуля, шести.md",
-    "C++ Notes/Internet stuff/Наследование, композиция, агрегация.md",
-    "C++ Notes/Internet stuff/Инкапсуляция.md",
-    "C++ Notes/cppcon/Writing Good C++14 - Bjarne Stroustrup -  CppCon 2015.md",
-    "C++ Notes/The Cherno series/OpenGL/Error handling.md",
-    "C++ Notes/The Cherno series/OpenGL/Index buffers.md",
-    "C++ Notes/The Cherno series/C++/move and move assignment operator.md",
     "C++ Notes/The Cherno series/OpenGL",
-    "C++ Notes/cppcon",
+    "C++ Notes/CppCon and similar",
     "C++ Notes/_Generic",
     "README.md~",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
@@ -197,7 +190,6 @@
     "Untitled 1.canvas",
     "Untitled.canvas",
     "C++ Notes/The Cherno series/C++",
-    "C++ Notes/The Cherno series",
     "Pasted image 20240523140325.png"
   ]
 }
