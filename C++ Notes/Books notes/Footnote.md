@@ -1,0 +1,1 @@
+This is collection of notes from read books. It's not accurate or full "conspectus" or summary, it's more short notes, points and examples I found for my self new/interesting/useful to repeat time to times.  
