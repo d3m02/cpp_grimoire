@@ -1,27 +1,24 @@
 {
   "main": {
-    "id": "e305977b0aa42445",
+    "id": "e0a9e65a43da78e8",
     "type": "split",
     "children": [
       {
-        "id": "54a57ffa1053ceb8",
+        "id": "eeede2b745fa7830",
         "type": "tabs",
         "children": [
           {
-            "id": "231fe8ada8b31a87",
+            "id": "716929c9f7f7de79",
             "type": "leaf",
             "state": {
-<<<<<<< HEAD
-              "type": "empty",
-              "state": {}
-=======
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/CppCon and similar/Classic STL.md",
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
                 "mode": "source",
                 "source": false
-              }
->>>>>>> 0773d71 (cppCon: Classic STL)
+              },
+              "icon": "lucide-file",
+              "title": "Chapter 5 - Implementations"
             }
           }
         ]
@@ -30,25 +27,27 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "a3d86595fcb8f3d2",
+    "id": "2a196163356153b3",
     "type": "split",
     "children": [
       {
-        "id": "d3cf51dd597c0b01",
+        "id": "ea809f52a229ba2c",
         "type": "tabs",
         "children": [
           {
-            "id": "72ace6e83e39d30e",
+            "id": "f1dc705d07e24da1",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
-            "id": "e170416c00e1399a",
+            "id": "458a1fb62eed5c32",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -59,41 +58,42 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
-            "id": "d112b72f493e5556",
+            "id": "9147a83b0196840b",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300.5
+    "width": 300
   },
   "right": {
-    "id": "127d54cf6ee62ffe",
+    "id": "fe0994e32739c861",
     "type": "split",
     "children": [
       {
-        "id": "15fe5e97fcfa4edc",
+        "id": "f672389c607572fa",
         "type": "tabs",
         "children": [
           {
-            "id": "4b1d42335429734f",
+            "id": "10af20756fcf6d86",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-<<<<<<< HEAD
-=======
-                "file": "C++ Notes/CppCon and similar/Classic STL.md",
->>>>>>> 0773d71 (cppCon: Classic STL)
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -101,123 +101,101 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Chapter 5 - Implementations"
             }
           },
           {
-            "id": "be84d67311d45e42",
+            "id": "2725eb7d07b9f926",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-<<<<<<< HEAD
-=======
-                "file": "C++ Notes/CppCon and similar/Classic STL.md",
->>>>>>> 0773d71 (cppCon: Classic STL)
-                "linksCollapsed": true,
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
+                "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Chapter 5 - Implementations"
             }
           },
           {
-            "id": "0f55f367857c21cf",
+            "id": "b862e41dcf6fa34d",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
-            "id": "7fd98d3267b263a1",
+            "id": "baed6d900ed7b2f6",
             "type": "leaf",
             "state": {
               "type": "outline",
-<<<<<<< HEAD
-              "state": {}
-=======
               "state": {
-                "file": "C++ Notes/CppCon and similar/Classic STL.md"
-              }
->>>>>>> 0773d71 (cppCon: Classic STL)
-            }
-          },
-          {
-            "id": "b67505c7710e3e23",
-            "type": "leaf",
-            "state": {
-              "type": "side-panel-control-view",
-              "state": {}
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Chapter 5 - Implementations"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 318.5
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "markdown-importer:Open format converter": false,
-      "obsidian-markdown-formatting-assistant-plugin:Open Markdown Formatting Assistant": false
+      "markdown-importer:Open format converter": false
     }
   },
-  "active": "231fe8ada8b31a87",
+  "active": "716929c9f7f7de79",
   "lastOpenFiles": [
-<<<<<<< HEAD
-    "C++ Notes/CppCon and similar/Classic STL.md",
-    "C++ Notes/CppCon and similar/res/Pasted image 20241009150031.png",
-=======
-    "C++ Notes/CppCon and similar/res/Pasted image 20241009150031.png",
-    "C++ Notes/CppCon and similar/Classic STL.md",
->>>>>>> 0773d71 (cppCon: Classic STL)
-    "C++ Notes/CppCon and similar/res/Pasted image 20241009134044.png",
-    "C++ Notes/CppCon and similar/res",
-    "C++ Notes/CppCon and similar/Understanding Value Categories.md",
-    "C++ Notes/Interview C++ template/Basic C++.md",
-    "C++ Notes/Interview C++ template/Coding task and algorithms.md",
-    "C++ Notes/Interview C++ template/Error handling & Exceptions.md",
+    "Untitled.md",
+    "Untitled 1.md",
+    "Untitled 2.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 4 - Design and Declarations.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 3 - Resource Management.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 1 - Accustoming Yourself to C++.md",
+    "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
     "C++ Notes/Interview C++ template/Memory.md",
-    "C++ Notes/Interview C++ template/OOP + Data structures.md",
-    "C++ Notes/Interview C++ template/Unix and networking.md",
-    "C++ Notes/Interview C++ template/Architecture and Design.md",
-    "C++ Notes/Interview C++ template/Modern C++.md",
-    "C++ Notes/CppCon and similar/Efficiency with Algorithms, Performance with Data Structures.md",
-    "C++ Notes/CppCon and similar/105 STL Algorithms in Less Than an Hour.md",
-    "C++ Notes/Internet stuff/Наследование, композиция, агрегация.md",
-    "C++ Notes/Internet stuff/Инкапсуляция.md",
-    "C++ Notes/_Generic/Notes.md",
-    "C++ Notes/CppCon and similar/Writing Good C++14.md",
-    "C++ Notes/The Cherno series/OpenGL/Batch Rendering.md",
-    "C++ Notes/The Cherno series/OpenGL/Uniforms.md",
-    "C++ Notes/The Cherno series/OpenGL/Making uniforms faster.md",
-    "C++ Notes/The Cherno series/OpenGL/Texture.md",
-    "C++ Notes/The Cherno series/OpenGL/Rendering multiple objects.md",
-    "C++ Notes/The Cherno series/OpenGL/Math.md",
-    "C++ Notes/The Cherno series/OpenGL/Blending.md",
-    "C++ Notes/The Cherno series/OpenGL/Vertex Buffers.md",
-    "C++ Notes/The Cherno series/OpenGL/Vertex arrays.md",
-    "C++ Notes/The Cherno series/OpenGL",
-    "C++ Notes/CppCon and similar",
-    "C++ Notes/_Generic",
-    "README.md~",
+    "C++ Notes/Books notes/Footnote.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed",
+    "C++ Notes/Books notes",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
-    "Grimoire_pc_cover.png",
-    "C++ Notes/Jason Turner - CPP weakly",
-    "C++ Notes/Interview C++ template",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Указатели.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Списки инициализаторов членов.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Семантика перемещения.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Семантика копирования, конструктор копирования.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Реализация интерфейсов.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Полиморфизм во время компялции.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Полиморфизм.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Методы, генерируемые компилятором.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Композиция объектов и реализация наследования.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Исключения.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Инициализация.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Именованные преобразования.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Базовое наследование классов.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/Static.md",
+    "C++ Notes/Джош Лоспинозо. С++ для Профи/size_t.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Джош Лоспинозо. С++ для Профи",
-    "Untitled 1.canvas",
-    "Untitled.canvas",
-    "C++ Notes/The Cherno series/C++",
-    "Pasted image 20240523140325.png"
+    "Books Notes"
   ]
 }
