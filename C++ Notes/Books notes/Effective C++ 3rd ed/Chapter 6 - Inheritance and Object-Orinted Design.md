@@ -309,3 +309,59 @@ bool Set<T>::insert(const T& item)
 }
 ...
 ```
+
+
+
+
+## Item 39: Use private inheritance judiciously.
+What if replace public inheritance with private?
+> we will get true of this live
+```c++
+class Person { ... };
+class Student : private Person { ... };
+
+Person p;
+Student s;
+eat (p); // finem p is a Person
+eat (s); // error: a Student isn't a Person..
+```
+
+In contrast to public inheritance, compilers will generally not convert a derived class object into a base class object if the inheritance relationship between the classes is private. Members inherited from a private base class become private members of the derived class, even  if they were protected or public in the base class. 
+
+Private inheritance means that implementation only should be inherited; interface should be ignored. 
+
+Private inheritance is most likely to be a legitimate design strategy when dealing with tow classes not related by is-a where one either needs access to the protected members of another or needs to redefine one or more of its virtual functions. 
+
+```c++
+class Emtpy{}; // has no data, so object should use no memory
+
+// sizeof(HoldsAsInt) > sizeof(int)
+class HoldsAnInt {
+	int x;
+	Empty e; // should require no memory, but in fact will have sizeof(Empty) == 1
+	         // C++'s edict agains zero-size freestanding object satisfied by the silent insertion of a char
+};
+
+// sizeof(HoldsAsInt) == sizeof(int), due to Empty Base Optimization (EBO)
+class HoldsAsInt : private Empty {
+	int x;
+};
+
+```
+
+
+
+## Item 40: Use multiple inheritance judiciously.
+When multiple inheritance enters the design-scape, it becomes possible to inherit the same name (e.g., function, typedef, etc.) from more than one base class. That leads to new opportunities for ambiguity. 
+To solve the ambiguity it's require to specify which base class's function to call: `mp.BorrowableItem::checkOut();`
+
+Another common problem - _deadly MI diamond (diamond problem)_. Any time we have and inheritance hierarchy with more than one path between a base class and a derived class, question if should members in the base class be replicated for each of the paths. C++ prefer perform replication, this can be changes if instead used _virtual inheritance_ form virtual base class
+```c++
+class File { ... };
+class InputFile : virtual public File { ... };
+class OutputFile : virtual public File { ... };
+class IOFile : public InputFile, public OutputFile { ... };
+```
+Virtual base classes require some behind-the-scenes legerdemain and as result - objects created from classes using virtual inheritance are generally larger, access to data members slower. Also initialization of virtual base classes are more complicated. 
+
+One scenario when muliple inheritance does have legitimate use it's combining public inheritance from an interfaces class with private inheritance from a class that helps with implementation. 
