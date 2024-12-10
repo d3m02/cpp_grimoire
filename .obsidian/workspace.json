@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "eeede2b745fa7830",
+        "id": "d0a481bf1f63c50e",
         "type": "tabs",
         "children": [
           {
-            "id": "716929c9f7f7de79",
+            "id": "a0043ed6688f3b72",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 7 - Templates and Generic Programming.md",
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 8 - Customizing new and delete.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 7 - Templates and Generic Programming"
+              "title": "Chapter 8 - Customizing new and delete"
             }
           }
         ]
@@ -140,13 +140,24 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md"
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 8 - Customizing new and delete.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Chapter 5 - Implementations"
+              "title": "Outline of Chapter 8 - Customizing new and delete"
+            }
+          },
+          {
+            "id": "4d7b680bb74cbbb7",
+            "type": "leaf",
+            "state": {
+              "type": "side-panel-control-view",
+              "state": {},
+              "icon": "viewIcon",
+              "title": "Markdown-Autocomplete"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -164,16 +175,20 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "716929c9f7f7de79",
+  "active": "a0043ed6688f3b72",
   "lastOpenFiles": [
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 6 - Inheritance and Object-Orinted Design.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 7 - Templates and Generic Programming.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 8 - Customizing new and delete.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 4 - Design and Declarations.md",
+    "Chapter.md",
+    "Declare non-member functions when type conversions should apply to all parameters.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Declare non-member functions when type conversions should apply to all parameters..md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 6 - Inheritance and Object-Orinted Design.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
     "C++ Notes/CppCon and similar/Understanding Value Categories.md",
     "Untitled.md",
     "Untitled 1.md",
     "Untitled 2.md",
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 4 - Design and Declarations.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 3 - Resource Management.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 1 - Accustoming Yourself to C++.md",
@@ -191,10 +206,6 @@
     "C++ Notes/Джош Лоспинозо. С++ для Профи/Полиморфизм во время компялции.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/Полиморфизм.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/Методы, генерируемые компилятором.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Композиция объектов и реализация наследования.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Исключения.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Инициализация.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Именованные преобразования.md",
     "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Джош Лоспинозо. С++ для Профи",
     "Books Notes"
