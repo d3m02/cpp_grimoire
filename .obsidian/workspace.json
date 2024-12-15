@@ -77,8 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "fe0994e32739c861",
@@ -175,7 +174,7 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "a0043ed6688f3b72",
+  "active": "f1dc705d07e24da1",
   "lastOpenFiles": [
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 7 - Templates and Generic Programming.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 8 - Customizing new and delete.md",
@@ -197,17 +196,17 @@
     "C++ Notes/Books notes/Footnote.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed",
     "C++ Notes/Books notes",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Указатели.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Списки инициализаторов членов.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Семантика перемещения.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Семантика копирования, конструктор копирования.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Реализация интерфейсов.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Полиморфизм во время компялции.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Полиморфизм.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/Методы, генерируемые компилятором.md",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи/img",
-    "C++ Notes/Джош Лоспинозо. С++ для Профи",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Указатели.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Списки инициализаторов членов.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Семантика перемещения.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Семантика копирования, конструктор копирования.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Реализация интерфейсов.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Полиморфизм во время компялции.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Полиморфизм.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Методы, генерируемые компилятором.md",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img",
+    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи",
     "Books Notes"
   ]
 }
