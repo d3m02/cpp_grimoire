@@ -8,14 +8,14 @@ Let's take example
 ```c++
 class Base {
 public: 
-	virtual void mf1() = 0;
-	virtual void mf2();
-	void mf3();
+    virtual void mf1() = 0;
+    virtual void mf2();
+    void mf3();
 };
 class Derived : public Base {
 public: 
-	virtual void m1();
-	void mf4();
+    virtual void m1();
+    void mf4();
 };
 ```
 Suppose that in derived class `mf4` implemented as 
@@ -23,7 +23,7 @@ Suppose that in derived class `mf4` implemented as
 void Derived::mf4()
 {
 ..
-	mf();
+    mf();
 }
 ```
 
@@ -33,16 +33,16 @@ Now we add in example overload functions
 ```c++
 class Base {
 public: 
-	virtaul void mf1() = 0;
-	virutal void mf1(int);
-	void mf3();
-	void mf3(double);
+    virtaul void mf1() = 0;
+    virutal void mf1(int);
+    void mf3();
+    void mf3(double);
 };
 class Derived : public Base {
 public: 
-	virtual void m1();
-	void mf3();
-	void mf4();
+    virtual void m1();
+    void mf3();
+    void mf4();
 };
 ```
 All functions named `mf1` and `mf3` in the base class are hidden by the functions named `mf1` and `mf3` in the derived class now. 
@@ -61,12 +61,12 @@ For fixing used `using` keyword:
 ```c++
 class Derived : public Base {
 public: 
-	using Base::mf1;
-	using Base::mf3;
-	
-	virtual void m1();
-	void mf3();
-	void mf4();
+    using Base::mf1;
+    using Base::mf3;
+
+    virtual void m1();
+    void mf3();
+    void mf4();
 };
 ```
 
@@ -75,13 +75,13 @@ For example, suppose Derived privately inherits from Base, and the only version 
 ```c++
 class Base {
 public: 
-	virtaul void mf1() = 0;
-	virutal void mf1(int);
+    virtaul void mf1() = 0;
+    virutal void mf1(int);
 };
 class Derived : private Base {
 public: 
-	virtual void m1()
-	{ Base::mf1(); }
+    virtual void m1()
+    { Base::mf1(); }
 };
 ```
 
@@ -95,8 +95,8 @@ As a class designer, sometimes require to allow for derived classes to inherit o
 ```c++
 class Shape {
 public:
-	// pure virtual function
-	virtual void draw() const = 0;
+    // pure virtual function
+    virtual void draw() const = 0;
 }
 ```
 
@@ -104,7 +104,7 @@ public:
 ```c++
 class Shape {
 public:
-	virtual void error(const std::string& msg);
+    virtual void error(const std::string& msg);
 }
 ```
 Sometimes it can be dangerous to allow simple virtual functions to specify both a function interface and a default implementation. For example if plane class `Model A` and `Model B` both are flown in exactly same way and fly function - but into `Airplane` base class as simple virtual function, but then added new, `Model C` that flown differently and fly function wasn't redefined my mistake - this will be attempt to made `Model C` fly as `Model A`. 
@@ -112,13 +112,13 @@ As solution can be used separate protected non-virtual function
 ```c++
 class Airplane {
 public: 
-	virtual void fly() = 0;
+    virtual void fly() = 0;
 protected:
-	void defaultFly();
+    void defaultFly();
 }
 class ModelA : public Airplane {
 public:
-	virtual void fly() { defaultFly(); }
+    virtual void fly() { defaultFly(); }
 }
 ```
 
@@ -126,15 +126,15 @@ Or provide default implementation for pure virtual function:
 ```c++
 class Airplane {
 public: 
-	virtual void fly() = 0;
+    virtual void fly() = 0;
 }
 void Airplane::fly () 
 {
-	// default code for flying
+    // default code for flying
 }
 class ModelA : public Airplane {
 public:
-	virtual void fly() { Airplane::fly(); }
+    virtual void fly() { Airplane::fly(); }
 }
 ```
 
@@ -144,7 +144,7 @@ A non-virtual member function specifies an _invariant over specialization_, beca
 ```c++
 class Shape { 
 public:
-	int objectID() const;
+    int objectID() const;
 };
 ```
 
@@ -159,15 +159,15 @@ _Non-virtual interface (NVI) idiom_ - having clients call private virtual functi
 ```c++
 class GameCharacter {
 public:
-	int healthValue() const 
-	{
-		//...
-		int retVal = doHealthValue();
-		//...
-		return retVal;
-	}
+    int healthValue() const 
+    {
+        //...
+        int retVal = doHealthValue();
+        //...
+        return retVal;
+    }
 private: 
-	virtual int doHealtValue() const { /* ... */ }
+    virtual int doHealtValue() const { /* ... */ }
 }
 ```
 It' a particular manifestation of the more general design pattern _Template Method_ (nothing to do with C++ templates).
@@ -178,14 +178,14 @@ _Strategy pattern_ - design pattern when function pointer passed as argument to 
 ```c++
 class GameCharacter {
 public:
-	typedef int(*HealthCalcFunc)(const GameCharacter&)
-	explicit GameCharacter(HeathCalcFuntion hcf = defaultHeatlhCalc)
-		: healthFunc(hcf)
-	{}
-	
-	int healthValue() const { return healthFunc(*this); }
+    typedef int(*HealthCalcFunc)(const GameCharacter&)
+    explicit GameCharacter(HeathCalcFuntion hcf = defaultHeatlhCalc)
+        : healthFunc(hcf)
+    {}
+
+    int healthValue() const { return healthFunc(*this); }
 private:
-	HealthCalcFunc healthFunc;
+    HealthCalcFunc healthFunc;
 };
 ```
 This approach offer interesting flexibility: 
@@ -199,17 +199,17 @@ Also, for Strategy approach can be used `std::function` wrapper.
 class GameCharacter; // forward declaration
 class HealthCalcFunc { 
 public:
-	virtual int calc(const GameCharacter& gc) const { .. }
+    virtual int calc(const GameCharacter& gc) const { .. }
 };
 HealthCalcFunc defaultHeathCalc;
 class GameCharacter {
 public:
-	explicit GameCharacter(HealthCalcFunc* phcf = &defaultHealthCalc)
-		: m_pHealthCalc(phcf)
-	{}
-	int healthValue() const { return pHealthCalc->calc(*this); }
+    explicit GameCharacter(HealthCalcFunc* phcf = &defaultHealthCalc)
+        : m_pHealthCalc(phcf)
+    {}
+    int healthValue() const { return pHealthCalc->calc(*this); }
 private:
-	HealthCalcFunc* m_pHealthCalc;
+    HealthCalcFunc* m_pHealthCalc;
 };
 ```
 This also offers the possibility to tweak health function by adding a derived class. 
@@ -221,11 +221,11 @@ This can cause some unexpected for user behavior when accessing such function th
 ```c++
 class B {
 public:
-	void mf();
+    void mf();
  };
 class D: public B {
 public: 
-	 void mf(); 
+     void mf(); 
 };
 D x;
 B* pB = &x;
@@ -246,21 +246,21 @@ Reason why C++ act in such manner is runtime efficiency. If default parameter va
 ```c++
 class Shape {
 public:
-	enum ShapeColor { Red, Green, Blue };
-	void draw(ShapeColor color = Red) const
-	{
-		doDraw(color);
-	}
+    enum ShapeColor { Red, Green, Blue };
+    void draw(ShapeColor color = Red) const
+    {
+        doDraw(color);
+    }
 
 private:
-	virtual void doDraw(ShapeColor color) const = 0;
+    virtual void doDraw(ShapeColor color) const = 0;
 };
 
 class Rectangle: public Shape {
 public:
 ...
 private:
-	virtual void doDraw(ShapeColor color) const;
+    virtual void doDraw(ShapeColor color) const;
 };
 ```
 
@@ -276,10 +276,10 @@ class PhoneNumber { };
 
 class Person {
 public:
-	...
+    ...
 private:
-	std::string name;
-	PhoneNumber voiceNumber;z
+    std::string name;
+    PhoneNumber voiceNumber;z
 }
 ```
 
@@ -288,24 +288,24 @@ private:
 template<class T>
 class Set {
 public: 
-	bool member(const T& item) const;
-	void insert(const T& item);
-	void remove(const T& item);
+    bool member(const T& item) const;
+    void insert(const T& item);
+    void remove(const T& item);
 
-	std::size_t size() const;
+    std::size_t size() const;
 private: 
-	std::list<T> m_represent;
+    std::list<T> m_represent;
 };
 
 template<typename T>
 bool Set<T>::member(const T& item) const
 {
-	return std::find(m_represent.begin(), m_represent.end(), item) != rep.end();
+    return std::find(m_represent.begin(), m_represent.end(), item) != rep.end();
 }
 template<typename T>
 bool Set<T>::insert(const T& item)
 {
-	if (!member(item)) m_represent.push_back(item);
+    if (!member(item)) m_represent.push_back(item);
 }
 ...
 ```
@@ -337,14 +337,14 @@ class Emtpy{}; // has no data, so object should use no memory
 
 // sizeof(HoldsAsInt) > sizeof(int)
 class HoldsAnInt {
-	int x;
-	Empty e; // should require no memory, but in fact will have sizeof(Empty) == 1
-	         // C++'s edict agains zero-size freestanding object satisfied by the silent insertion of a char
+    int x;
+    Empty e; // should require no memory, but in fact will have sizeof(Empty) == 1
+             // C++'s edict agains zero-size freestanding object satisfied by the silent insertion of a char
 };
 
 // sizeof(HoldsAsInt) == sizeof(int), due to Empty Base Optimization (EBO)
 class HoldsAsInt : private Empty {
-	int x;
+    int x;
 };
 
 ```

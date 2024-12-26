@@ -34,7 +34,7 @@ Occasionally it can be convenient to give a class a pure virtual destructor. Rec
 ```c++
 class AWOV {
 public: 
-	virtual ~AWOV() = 0;
+    virtual ~AWOV() = 0;
 };
 AWOV::~AWOV() {}
 ```
@@ -61,23 +61,23 @@ Since we can't use virtual functions to call down from base classes during const
 ```c++
 class Transaction {
  public:
-	 explicit Transaction(const std::string& logInfo);
-	 
-	 void logTransaction(const std::string& logInfo) const;
+     explicit Transaction(const std::string& logInfo);
+
+     void logTransaction(const std::string& logInfo) const;
  };
  Transaction::Transaction(const std::string& logInfo)
  {
-	 logTransaction(logInfo);
+     logTransaction(logInfo);
  }
  
  class BuyTransaction: public Transaction {
  public:
-	 BuyTransaction( parameters )
-		 : Transaction(createLogString( parameters ))
-	 { ... }
+     BuyTransaction( parameters )
+         : Transaction(createLogString( parameters ))
+     { ... }
  ...
  private:
-	 static std::string createLogString( parameters );
+     static std::string createLogString( parameters );
  };
 ```
 
@@ -93,18 +93,18 @@ The way this is implemented is that assignment returns a reference to its left-h
 ```c++
 Widget& operator=(const Widget& rhs)
 {
-	//...
-	return *this;
+    //...
+    return *this;
 }
 Widget& operator+=(const Widget& rhs)
 {
-	//...
-	return *this;
+    //...
+    return *this;
 }
 Widget& operator=(int rhs)
 {
-	//...
-	return *this;
+    //...
+    return *this;
 }
 ```
 
@@ -116,14 +116,14 @@ This can lead to trap of accidentally releasing a resource before done using it.
 ```c++
 class Widget {
 public:
-	Widget& operator=(const Widget& rhs)
-	{ //unsafe impl. 
-		delete pBitmap;
-		pBitmap = new Bitmap(*rhs.pBitmap);
-		return *this;
-	}
+    Widget& operator=(const Widget& rhs)
+    { //unsafe impl. 
+        delete pBitmap;
+        pBitmap = new Bitmap(*rhs.pBitmap);
+        return *this;
+    }
 private:
-	Bitmap* pBitmap; 
+    Bitmap* pBitmap; 
 };
 ```
 
@@ -131,11 +131,11 @@ Another problem - if some exception emitted.
 ```c++
 Widget& Widget::operator=(const Widget& rhs)
 {
-	if (this == &rhs) return *this;
+    if (this == &rhs) return *this;
 
-	delete pBitmap;
-	pBitmap = new Bitmap(*rhs.pBitmap);
-	return *this;
+    delete pBitmap;
+    pBitmap = new Bitmap(*rhs.pBitmap);
+    return *this;
 }
 ```
 If `new` yields an exception, the Widget will end up holding a pointer to deleted pBitmap. Such pointers are toxic, they can't safely be deleted, they can't be safely read.
@@ -144,11 +144,11 @@ Making `operator=` exception-safe typically renders it self-assignment-safe.
 ```c++
 Widget& Widget::operator=(const Widget& rhs)
 {
-	Bitmap* pOrig = pBitmap;
-	pBitmap = new Bitmap(*rhs.pBitmap);
-	delete pOrig;
-	
-	return *this;
+    Bitmap* pOrig = pBitmap;
+    pBitmap = new Bitmap(*rhs.pBitmap);
+    delete pOrig;
+
+    return *this;
 }
 ```
 In this example self-identity test can be added, but it's possibly redundant: self-assignment test isn't free and will make actual profit in unrealistic cases (how often we expect that self-assignment will occur). 
@@ -157,18 +157,18 @@ An alternative to manually ordering statements in `operator=` to make sure the i
 ```c++
 class Widget 
 {
-	void swap(Widget& rhs);
-	Widget& operator=(const Widget& rhs)
-	{
-		Widget temp(rhs); // passing by reference require manual copy
-		swap(temp);
-		return *this;
-	}
-	Widget& operator=(Widget rhs) // passing by value makes a copy of it
-	{
-		swap(rhs);
-		return *this;
-	}
+    void swap(Widget& rhs);
+    Widget& operator=(const Widget& rhs)
+    {
+        Widget temp(rhs); // passing by reference require manual copy
+        swap(temp);
+        return *this;
+    }
+    Widget& operator=(Widget rhs) // passing by value makes a copy of it
+    {
+        swap(rhs);
+        return *this;
+    }
 }
 ```
 
