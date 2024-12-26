@@ -4,14 +4,14 @@ When operator new can’t satisfy a memory allocation request, it throws an exce
 Before operator new throws an exception in response to an unsatisfiable request for memory, it calls a client-specifiable error-handling function called a new-handler.
 ```c++
 namespace std {
-	typedef void (*new_handler)();
-	new_handler set_new_handler(new_handler p) throw();
+    typedef void (*new_handler)();
+    new_handler set_new_handler(new_handler p) throw();
 }
 
 void outOfMem()
 {
-	std::cerr << "Unable to satisfy request for memory\n";
-	std::abort();
+    std::cerr << "Unable to satisfy request for memory\n";
+    std::abort();
 }
 std::set_new_handler(outOfMem);
 ```
@@ -31,28 +31,28 @@ Example how to implement for specific class custom new-handler based on _the cur
 template<typename T> 
 class NewHandlerSupport { 
 public: 
-	static std::new_handler set_new_handler(std::new_handler p) throw();
-	static void* operator new(std::size_t size) throw(std::bad_alloc);
+    static std::new_handler set_new_handler(std::new_handler p) throw();
+    static void* operator new(std::size_t size) throw(std::bad_alloc);
 
 private:
-	static std::new_handler currentHandler;
+    static std::new_handler currentHandler;
 };
 
 template<typename T>
 std::new_handler
 NewHandlerSupport<T>::set_new_handler(std::new_handler p) throw()
 {
-	std::new_handler oldHandler = currentHandler;
-	currentHandler = p;
-	return oldHandler;
+    std::new_handler oldHandler = currentHandler;
+    currentHandler = p;
+    return oldHandler;
 }
 
 template<typename T>
 void* NewHandlerSupport<T>::operator new(std::size_t size)
 throw(std::bad_alloc)
 {
-	NewHandlerHolder h(std::set_new_handler(currentHandler));
-	return ::operator new(size);
+    NewHandlerHolder h(std::set_new_handler(currentHandler));
+    return ::operator new(size);
 }
 // this initializes each currentHandler to null
 template<typename T>
@@ -86,31 +86,31 @@ Operator `new` actually tries to allocate memory more than once, calling the new
 // migth have additional parameters
 void* operator new(std::size_t size) throw(std::bad_alloc)
 {
-	using namespace std;
-	if (size == 0)
-		size = 1; 
-	
-	while (true) {
-		//attempt to allocate size bytes;
-		if (/*the allocation was successful*/)
-			return /*(a pointer to the memory)*/;
-		// allocation was unsuccessful; find out what the
-		// current new-handling function is
-		new_handler globalHandler = set_new_handler(0);
-		set_new_handler(globalHandler);
-		if (globalHandler) 
-			(*globalHandler)();
-		else 
-			throw std::bad_alloc();
-	}
+    using namespace std;
+    if (size == 0)
+        size = 1; 
+
+    while (true) {
+        //attempt to allocate size bytes;
+        if (/*the allocation was successful*/)
+            return /*(a pointer to the memory)*/;
+        // allocation was unsuccessful; find out what the
+        // current new-handling function is
+        new_handler globalHandler = set_new_handler(0);
+        set_new_handler(globalHandler);
+        if (globalHandler) 
+            (*globalHandler)();
+        else 
+            throw std::bad_alloc();
+    }
 }
 ```
 Class member version should also check in base class that for `new` can be called derived class
 ```c++
 class Base {
 public:
-	static void* operator new(std::size_t size) throw(std::bad_alloc);
-	//...
+    static void* operator new(std::size_t size) throw(std::bad_alloc);
+    //...
 };
 class Derived: public Base // Derived doesn’t declare
 { ... }; // operator new
@@ -118,9 +118,9 @@ Derived *p = new Derived; // calls Base::operator new!
 
 void* Base::operator new(std::size_t size) throw(std::bad_alloc)
 {
-	if (size != sizeof(Base)) // if size is “wrong,”
-		return ::operator new(size);
-	//..
+    if (size != sizeof(Base)) // if size is “wrong,”
+        return ::operator new(size);
+    //..
 }
 ```
 
@@ -128,27 +128,27 @@ For operator `delete`, things are simpler. About all you need to remember is tha
 ```c++
 void operator delete(void *rawMemory) throw()
 {
-	if (rawMemory == 0) 
-		return; // do nothing if the null
-				// pointer is being deleted
-	/* deallocate the memory pointed to by rawMemory; */
+    if (rawMemory == 0) 
+        return; // do nothing if the null
+                // pointer is being deleted
+    /* deallocate the memory pointed to by rawMemory; */
 }
 
 class Base { 
 public: 
-	static void operator delete(void *rawMemory, std::size_t size) throw();
-	//...
+    static void operator delete(void *rawMemory, std::size_t size) throw();
+    //...
 };
 
 void Base::operator delete(void *rawMemory, std::size_t size) throw()
 {
-	if (rawMemory == 0) 
-		return; 
-	if (size != sizeof(Base)) { // if size is “wrong,”
-		::operator delete(rawMemory); // have standard operator
-		return; // delete handle the request
-	}
-	/* deallocate the memory pointed to by rawMemory; */
+    if (rawMemory == 0) 
+        return; 
+    if (size != sizeof(Base)) { // if size is “wrong,”
+        ::operator delete(rawMemory); // have standard operator
+        return; // delete handle the request
+    }
+    /* deallocate the memory pointed to by rawMemory; */
 }
 ```
 

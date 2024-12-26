@@ -9,8 +9,8 @@ An implicit interface rather consists of valid expressions.
 template<typename T>
 void doProcessing(T& w)
 {
-	if (w.size() > 10 && w != someNastyWidget) {
-	...
+    if (w.size() > 10 && w != someNastyWidget) {
+    ...
 }
 ```
 `T` must support `size` member function, but this member function need not return an integral (or numeric) type, it need not even return a type for which `operator>` defined. All it needs to do is return an object of some type `X` such that there is an `operator>` that can be called with an object of type `X` and `int` (because 10 is of int type). The `operator>` need not take a parameter of type `X`, because it could take a parameter of type `Y`, and that would be okay as long as there were an implicit conversion from objects of type `X` to objects of type `Y`.
@@ -25,9 +25,9 @@ However, C++ doesn't always view `class` and `typename` as equivalent.
 template<typename C> // typename allowrd (as is "class")
 void print2nd(const C& container) //typename not allowed
 {
-	if (container.size() >= 2) {
-		typename C::const_iterator iter(container.begin()); //typename required
-	}
+    if (container.size() >= 2) {
+        typename C::const_iterator iter(container.begin()); //typename required
+    }
 }
 ```
 `iter` is depended on template parameter `C`, it's _nested dependent type name_. Anytime we refer to a nested dependent type name in a template, it's must be precede by the `typename` keyword. `typename` should be used to identify only nested dependent type names, exception is that `typename` must not precede nested dependent type name in a list of base classes or as a base class identifier in a member initialization list.  
@@ -36,11 +36,11 @@ template <typename T>
 class Dervied : public Base<T>::Nested // typename not allowed in base class list
 {
 public:
-	explicit Derived (int x)
-		: Base<T>::Nested(x)  // not allowed: initialization list
-	{
-		typename Base<T>::Nested temp; // required. 
-	}
+    explicit Derived (int x)
+        : Base<T>::Nested(x)  // not allowed: initialization list
+    {
+        typename Base<T>::Nested temp; // required. 
+    }
 ```
 
 
@@ -55,51 +55,51 @@ To reset it, we have to somehow disable C++'s "don't look in templatized base cl
 ```c++
 class CompanyA {
 public: 
-	...
-	void sendCleartext(const std::string& msg);	
+    ...
+    void sendCleartext(const std::string& msg);
 };
 class CompanyB {
 public: 
-	vpod sendCleartext(const std::string& msg);	
+    void sendCleartext(const std::string& msg);
 };
 class MsgInfo { .. };
 
 template<typename Company>
 class MsgSender {
 public:
-	...
-	void sendClear(const MsgInfo& info)
-	{
-		// create msg from info
-		Company c;
-		c.sendCleartext(msg);
-	}
+    ...
+    void sendClear(const MsgInfo& info)
+    {
+        // create msg from info
+        Company c;
+        c.sendCleartext(msg);
+    }
 };
 
 template<typename Company>
 class LoggingMsgSender : public MsgSender<Company> {
 public:
-	void SendClearMsg(const MsgInfo& info)
-	{
-		// log before
-		
-		/* sendClear(info); < will not compile */
-		
-		this->sendClear*(info);
-		//or 
-		MsgSender::sendClear(info);
-		
-		//log after 
-	}
-	
-	// or  
-	using MsgSender::sendClear; 
-	void sendClearMsg(const MsgInfo& info)
-	{
-		...
-		sendClear(info);
-		...
-	}
+    void SendClearMsg(const MsgInfo& info)
+    {
+        // log before
+
+        /* sendClear(info); < will not compile */
+
+        this->sendClear*(info);
+        //or 
+        MsgSender::sendClear(info);
+
+        //log after 
+    }
+
+    // or  
+    using MsgSender::sendClear; 
+    void sendClearMsg(const MsgInfo& info)
+    {
+        ...
+        sendClear(info);
+        ...
+    }
 };
 ```
 
@@ -107,15 +107,15 @@ In same case type can not contain some function or require specific behavior. `t
 ```c++
 class CompanyZ {
 public:
-	//no sendCleartext function 
-	void sendEncrypted(const std::string& msg);
+    //no sendCleartext function 
+    void sendEncrypted(const std::string& msg);
 }
 
 template<>
 class MsgSender<CompanyZ> {
 public:
     // sendClear is omitted
-	void sendSecret(const MsgInfo& info) { ... }
+    void sendSecret(const MsgInfo& info) { ... }
 };
 LoggingMsgSender<CompanyZ> zMsgSender;
 MsgInfo msgData;
@@ -166,8 +166,8 @@ _Member function templates_ (member templates) - templates that generate member 
 template<typename T>
 class SmartPtr {
 public:
-	template<typename U>
-	SmartPtr(const SmartPtr<U>& other);
+    template<typename U>
+    SmartPtr(const SmartPtr<U>& other);
 };
 ```
 Constructors that create one object from another object whose type is a different instantiation of the same template are sometimes known as _generalized copy constructors_. 
@@ -186,12 +186,12 @@ Simplest way to solve is to merge the body of `operator*` into its declaration:
 template<typename T> 
 class Rational {
 public:
-	...
-	friend const Rational operator*(const Rational& lhs, const Rational& rhs)
-	{
-		return Rational(lhs.numerator() * rhs.numerator(), 
-		               lhs.denominator() * rhs.denominator());
-	}
+    ...
+    friend const Rational operator*(const Rational& lhs, const Rational& rhs)
+    {
+        return Rational(lhs.numerator() * rhs.numerator(), 
+                        lhs.denominator() * rhs.denominator());
+    }
 }
 ```
 Note that this will be inline.
@@ -201,18 +201,18 @@ The fact that class is a template means that the helper function will usually al
 template<typename T> class Rational;
 template<typename T>
 const Rational<T> doMultiply(const Rational<T>& lhs, 
-							 const Rational<T>& rhs)
+                             const Rational<T>& rhs)
 {
-	return Rational<T>(lhs.numerator() * rhs.numerator(), 
-		               lhs.denominator() * rhs.denominator());
+    return Rational<T>(lhs.numerator() * rhs.numerator(), 
+                       lhs.denominator() * rhs.denominator());
 }
 
 template<typename T>
 class Rational {
 public:
-	...
-	friend const Rational operator*(const Rational& lhs, const Rational& rhs)
-	{ return doMultiply(lhs, rhs); }
+    ...
+    friend const Rational operator*(const Rational& lhs, const Rational& rhs)
+    { return doMultiply(lhs, rhs); }
 }
 ```
 As a template, `doMultiply` will not support mixed-mode multiplication, but it doesn't need to, since `operator*` does support mixed-mode operations. 
@@ -231,17 +231,17 @@ Example from STL iterators:
 ```c++
 tempalte<typename iterT>
 struct iterator_traits {
-	typedef typename iterT::iterator_category iterator_category;
+    typedef typename iterT::iterator_category iterator_category;
 };
 
 template <...>
 class deque {
 public:
-	class iterator {
-	public:
-		typedef random_access_iterator_tag iterator_category;
-	};
-	...
+    class iterator {
+    public:
+        typedef random_access_iterator_tag iterator_category;
+    };
+    ...
 }
 ```
 The way iterator_traits works is that for each type `iterT` a typedef `iterator_category` is declared in the struct `iteraotor_traits<iterT>` which identified the iterator category of `iterT`.
@@ -249,7 +249,7 @@ To support iterators-pointers `iterator_trits` offers a _partial template specia
 ```c++
 tempalte<typename T>
 struct iterator_traits<T*> {
-	typedef random_access_iterator_tag iterator_category;
+    typedef random_access_iterator_tag iterator_category;
 };
 ```
 
@@ -274,8 +274,8 @@ void doAdvance(IterT& iter, DistT d, std::bidirectional_iterator_tag)
 template<typename IterT, typename DistT>
 void advance(IterT& iter, DistT d)
 {
-	doAdvance(iter, d, 
-	          typename std::iterator_traits<IterT>::iteraotr_category());
+    doAdvance(iter, d, 
+              typename std::iterator_traits<IterT>::iteraotr_category());
 }
 ```
 

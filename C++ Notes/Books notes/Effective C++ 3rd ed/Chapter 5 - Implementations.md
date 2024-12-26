@@ -3,13 +3,13 @@
 // this function defines the variable "encrypted" too soon 
 std::string encryptPassword(const std::string& password) 
 {
-	using namespace std; 
-	string encrypted; 
-	if (password.length() < MinimumPasswordLength) 
-		throw logic_error("Password is too short");
-	...
-	return encryped;
-}	
+    using namespace std; 
+    string encrypted; 
+    if (password.length() < MinimumPasswordLength) 
+        throw logic_error("Password is too short");
+    ...
+    return encryped;
+}
 ```
 The object `encrypted` isn’t completely unused in this function, but it’s
 unused if an exception is thrown. Problem is that we pay for the construction and of `encrypted` even if exception thrown.
@@ -25,16 +25,16 @@ With loops situation not that easy. It's depend on data sensitivity (how long sh
 Widget w;
 for (int i = 0; i < n; ++i)
 {
-	w = something(i);
-	...
+    w = something(i);
+    ...
 }
 
 // Approach B
 // n construcrtors + n destructors. 
 for (int i = 0; i < n; i++)
 {
-	Widget w(someting(i));
-	...
+    Widget w(someting(i));
+    ...
 }
 ```
 
@@ -55,10 +55,10 @@ In next example intend to implement in virtual member function implementations i
 ```c++
 class SpecialWindow : public Window {
 public: 
-	virtial void onResize() {
-		static_cast<Window>(*this).onResize();
-		...
-	}
+    virtial void onResize() {
+        static_cast<Window>(*this).onResize();
+        ...
+    }
 }
 ```
 What actually happening here - cast creates a new temporary copy of the bass class part of `*this`, then invokes onResize on the copy. Instead should be used simple `Window::onResize();`
@@ -70,24 +70,24 @@ std::vector <Base> collection;
 //and auto in C++ was added after book publication.
 for (auto item : collection)
 {
-	if (auto* pDerived = dynamic_cast<Derived*>(item))
-		pDerived->blink();
+    if (auto* pDerived = dynamic_cast<Derived*>(item))
+        pDerived->blink();
 }
 ```
 it's can cost a lot in runtime, better instead have separate container for Derived classes. Or declare in base class the function that does nothing 
 ```c++ 
 class Base {
 public:
-	virtual void blink() {}
+    virtual void blink() {}
 };
 class Derived : public Base {
 public:
-	virtual void blink() { ... }
+    virtual void blink() { ... }
 };
 std::vector <Base> collection;
 for (auto item : collection)
 {
-	item->blink();
+    item->blink();
 }
 ```
 
@@ -97,12 +97,12 @@ for (auto item : collection)
 Assume that we have class 
 ```c++ 
 struct RectData {
-	Point ulhc;
-	Point lrhc;
+    Point ulhc;
+    Point lrhc;
 };
 class Rectnagle {
 private:
-	std::shared_ptr<RectData> pData;
+    std::shared_ptr<RectData> pData;
 };
 ```
 If add functions like 
@@ -110,8 +110,8 @@ If add functions like
 class Rectangle 
 {
 public:
-	Point& upperLeft() const { return pData->ulhc; }
-	Pointer& lowerRight() const { return pData->lrhc; }
+    Point& upperLeft() const { return pData->ulhc; }
+    Pointer& lowerRight() const { return pData->lrhc; }
 }
 
 const Rectange rec(coord1, coord2);
@@ -160,7 +160,7 @@ The implicit way is to define a function inside a class definition:
 ```c++
 class Person {
 public:
-	int age()const { return mAge; }
+    int age()const { return mAge; }
 };
 ```
 Friend functions can also be defined inside classes, they're also implicitly declared inline.
@@ -180,13 +180,13 @@ The problem is that C++ doesn't do a very good job of separating interfaces from
 ```c++
 class Person {
 public:
-	Person(const std::srting& name, const Address& address);
-	std::string name() const;
-	std::string address() const;
+    Person(const std::srting& name, const Address& address);
+    std::string name() const;
+    std::string address() const;
 
 private: 
-	std::string m_name; //implementation detail, require include <string>
-	Address m_address;  //implementation detail, require include "adress.h"
+    std::string m_name; //implementation detail, require include <string>
+    Address m_address;  //implementation detail, require include "adress.h"
 }
 ```
 
@@ -203,11 +203,11 @@ class Address;
 
 class Person {
 public:
-	Person(const std::srting& name, const Address& address);
-	std::string name() const;
-	std::string address() const;
+    Person(const std::srting& name, const Address& address);
+    std::string name() const;
+    std::string address() const;
 private: 
-	std::shared_ptr<PersonImpl> pImpl;
+    std::shared_ptr<PersonImpl> pImpl;
 };
 ```
 The key to this separation is replacement of dependencies on definitions with dependencies on declarations. 
@@ -234,9 +234,9 @@ An alternative to handle class approach is to make a special kind of abstract ba
 ```c++
 class Person {
 public:
-	virtual ~Person();
-	virtual std::string name() const = 0;
-	virtual std::string address() const = 0;
+    virtual ~Person();
+    virtual std::string name() const = 0;
+    virtual std::string address() const = 0;
 }
 ```
 
@@ -244,7 +244,7 @@ Clients of an interface class must have a way to create new objects. They typica
 ```c++
 class Person {
 public:
-	static std::shared_ptr<Person> create(const std::string& name, const Address& addr);
+    static std::shared_ptr<Person> create(const std::string& name, const Address& addr);
 };
 
 std::shared_ptr<Person> pp (Person::create(name, address));
@@ -253,18 +253,18 @@ Concrete classes supporting the interface class's interface must be defined and 
 ```c++
 class RealPerson : public Person {
 public:
-	RealPerson(const std::string& name, const Address& addr);
-	virtual ~RealPerson();
-	// note: override added in standart after book publication
-	std::string name() const override; 
-	std::address() const override;
+    RealPerson(const std::string& name, const Address& addr);
+    virtual ~RealPerson();
+    // note: override added in standart after book publication
+    std::string name() const override; 
+    std::address() const override;
 private:
-	std::string m_name;
-	Address m_address;
+    std::string m_name;
+    Address m_address;
 };
 std::shhared_ptr<Person> Person::create(const std::string& name, 
-									   const Address& addr)
+                                        const Address& addr)
 {
-	return std::shared_ptr<Person>(new RealPerson(name, addr));
+    return std::shared_ptr<Person>(new RealPerson(name, addr));
 }
 ```

@@ -28,7 +28,7 @@ CALL_WITH_MAX(++a, b + 10); // a is incremented once
 template<typename T>
 inline void CallWithMax (const T& a, const T& b)
 {
-	f(a > b ? a : b)
+    f(a > b ? a : b)
 }
 ```
 
@@ -48,20 +48,20 @@ In some cases member functions might not act very const. For example if const-me
 ```c++
 class C {
 public:
-	void cFunc(int stolen) const 
-	{ *pTreasure = stolen; }
+    void cFunc(int stolen) const 
+    { *pTreasure = stolen; }
 private:
-	int* pValue {};
+    int* pValue {};
 };
 ```
 Or if function declared as const member but return non-const reference to member. 
 ```c++
 class CTextBlock {
 public:
-	char& operator[](std::size_t position) const 
-	{ return pText[position]; }
+    char& operator[](std::size_t position) const 
+    { return pText[position]; }
 private:
-	char* pText;
+    char* pText;
 };
 const CTextBlock cctb("Hello");
 char* pc = &cctb[0];
@@ -77,19 +77,19 @@ Casting away the const on the return value is safe if non-const version does exa
 ```c++
 class TextBlock {
 public: 
-	const char& operator[](std::size_t pos) const 
-	{
-		// some checks, logs etc
-		return text[position];
-	}
-	char& operator[](std::size_t pos)
-	{
-		return 
-			const_cast<char&>(           //cast away const on return type
-				static_cast<const TextBlock&>(*this) // add const
-					[position]         // call const version of operator[]
-			);
-	}
+    const char& operator[](std::size_t pos) const 
+    {
+        // some checks, logs etc
+        return text[position];
+    }
+    char& operator[](std::size_t pos)
+    {
+        return 
+            const_cast<char&>(           //cast away const on return type
+                static_cast<const TextBlock&>(*this) // add const
+                    [position]         // call const version of operator[]
+            );
+    }
 }
 ```
 We want the non-const `operator[]` to call const one, but if inside the non-const we just call `operator[]`, we'll recursively call ourselves, that's why we cast `*this` to it's const version. 

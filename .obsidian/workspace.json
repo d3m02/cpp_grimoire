@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 8 - Customizing new and delete.md",
+                "file": "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 1 - Accustoming Yourself to C++.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 8 - Customizing new and delete"
+              "title": "Chapter 1 - Accustoming Yourself to C++"
             }
           }
         ]
@@ -174,10 +174,15 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "f1dc705d07e24da1",
+  "active": "a0043ed6688f3b72",
   "lastOpenFiles": [
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 7 - Templates and Generic Programming.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 1 - Deducing types.md",
+    "C++ Notes/Internet stuff/RAII.md",
+    "C++ Notes/Books notes/Effective Modern C++",
+    "C++ Notes/CppCon and similar/res/Pasted image 20241009150031.png",
+    "C++ Notes/CppCon and similar/res/Pasted image 20241009134044.png",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 8 - Customizing new and delete.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 7 - Templates and Generic Programming.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 4 - Design and Declarations.md",
     "Chapter.md",
     "Declare non-member functions when type conversions should apply to all parameters.md",
@@ -203,8 +208,6 @@
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Семантика копирования, конструктор копирования.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Реализация интерфейсов.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Полиморфизм во время компялции.md",
-    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Полиморфизм.md",
-    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Методы, генерируемые компилятором.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи",
     "Books Notes"

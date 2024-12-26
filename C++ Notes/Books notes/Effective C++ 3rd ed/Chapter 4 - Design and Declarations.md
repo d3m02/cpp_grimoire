@@ -4,7 +4,7 @@ For example simple Date class
 ```c++
 class Date { 
 public:
-	Date(int month, int day, int year);
+    Date(int month, int day, int year);
 };
 ```
 user can swap arguments and use constructor as `Date d(30, 2, 1995);`, user 
@@ -18,11 +18,11 @@ A safer solution is to predefine the set of all valid Months:
 ```c++
 class Month{
 public:
-	static Month Jan() { return Month(1); }
-	...
-	static Month Dec() { return Month(12); }
+    static Month Jan() { return Month(1); }
+
+    static Month Dec() { return Month(12); }
 private:
-	explicit Month (int m);
+    explicit Month (int m);
 }
 Date d(Month::Mar(), Day(30), Year(1995));
 ```
@@ -86,7 +86,7 @@ Note that this is exactly how the standard C++ library is organized. Rather than
 ```c++
 class Rational {
 public: 
-	Rational(int numeratpr = 0, int denominator = 1);
+    Rational(int numeratpr = 0, int denominator = 1);
 };
 ```
 It's require now for new type to add `operator*`. Design decision 
@@ -110,45 +110,45 @@ Typical implementation is (something similar implemented in STL)
 template<typename T>
 void swap(T& a, T& b)
 {
-	T temp(a);
-	a = b;
-	b = temp;
+    T temp(a);
+    a = b;
+    b = temp;
 }
 ```
 As long objects support copying (via copy constructor and copy assignment operator), the default swap implementation will let objects be swapped without having to do any special work. But sometimes making 3 copies might be expensive and custom swap will be better. For example if class implemented with design _pimpl idiom_ (pointer to implantation) - it's enough to swap `pImpl`. 
 ```c++
 class Widget {
 public:
-	void swap(Widget& other)
-	{
-		using std::swap;
-		swap (pImpl, other.pImpl);
-	}
+    void swap(Widget& other)
+    {
+        using std::swap;
+        swap (pImpl, other.pImpl);
+    }
 private:
-	WidgetImpl* pImpl;
+    WidgetImpl* pImpl;
 };
 namespace std {
-	template<>
-	void swap<Widget>(Widget& a, Widget& b)
-	{
-		a.swap(b);
-	}
+    template<>
+    void swap<Widget>(Widget& a, Widget& b)
+    {
+        a.swap(b);
+    }
 }
 ```
 
 If `Widget` and `WidgetImpl` are class templates, implementation will be changed a little bit since with implementation above partial specialization will not compile. Instead we declare a non-member swap that calls the member swap, we just don’t declare the non-member to be a specialization or overloading of `std::swap`
 ```c++
 namespace WidgetStuff {
-	template<typename T>
-	class WidgetImpl { ... };
-	template<typename T>
-	class Widget { ... };
+    template<typename T>
+    class WidgetImpl { ... };
+    template<typename T>
+    class Widget { ... };
 
-	template<typename T>
-	void swap(Widget<T>& a, Widget<T>& b)
-	{
-		a.swap(b);
-	}
+    template<typename T>
+    void swap(Widget<T>& a, Widget<T>& b)
+    {
+        a.swap(b);
+    }
 }
 ```
 
