@@ -128,7 +128,6 @@ void f2(T& param);
 
 
 
-
 ## Item 2: Understand `auto` type deduction.
 `auto` deduction _almost_ is template deduction. Same behavior as for Universal references, array and function names decay into pointers for non-reference type specifiers.
 
@@ -254,16 +253,16 @@ In more complex cases results might not be reliable. For example
 template<typename T>
 void f(const T& param)
 {
-    std::cout << "T = " << typeid(T).name() << '\n';
-    std::cout << "param = " << typeid(param).name() << '\n';
+    std::cout << "T = " << typeid(T).name() << '\n';
+    std::cout << "param = " << typeid(param).name() << '\n';
 }
 
 class Widget {};
 
 int main()
 {
-    std::vector<Widget> createdVec{};
-    f(&createdVec[0]);  
+    std::vector<Widget> createdVec{};
+    f(&createdVec[0]);  
 }
 ```
 _gcc_ and _clang_ reports for both `T` and `param` type "PK6Widget" (pointer to const, 6 characters in name, Widget), _msvc_ - "class Widget const \*", while `param`'s type is `const Widget* const&` - due to template type deduction - refrence-ness is ignored, and if the type after reference removal is `const` (or `volatile`), it's also ignored. 
@@ -297,6 +296,3 @@ int main()
 ### Things to Remember
 + Deduced types can often be seen using IDE editors, compiler error message, and the Boost TypeIndex library.
 + The result of some tools may be neither helpful nor accurate, so an understanding of C++'s type deduction rules remains essential.
-
-
-
