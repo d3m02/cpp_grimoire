@@ -14,9 +14,9 @@ void dwim(It b, It e)
 Because `auto` uses type deduction, it can represent types known only to compilers:
 ```c++
 auto derefUPLess = 
-   [](const std::unique_ptr<Widget>& pr1,
-      const std::unique_ptr<Widget>& pr2)
-      { return *p1 < *p2; };
+    [](const std::unique_ptr<Widget>& pr1,
+       const std::unique_ptr<Widget>& pr2)
+    { return *p1 < *p2; };
 ```
 
 In C++14 lambda expressions may involve `auto`:
@@ -30,7 +30,7 @@ auto derefLess = [](const auto& p1, const auto& p2)
 >`std::function` is a template in the C++11 STL that generalizes the idea of a function pointer. Whereas function pointers can point only to functions, however, `std::function` objects can refer to any callable object, i.e., to anything that can be invoked like a function. Because lambda expressions yield callable objects, closures can be stored as `std::function` objects. Without using `auto` it looks like 
 ```c++
 std::function<bool(const std::unique_ptr<Widget>&,
-                  const std::unique_ptr<Widget>&)>
+                   const std::unique_ptr<Widget>&)>
     derefUPLess = [](const std::unique_ptr<Widget>& pr1,
                      const std::unique_ptr<Widget>& pr2)
                   { return *p1 < *p2; };

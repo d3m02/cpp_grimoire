@@ -77,7 +77,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 323.5
+    "width": 323.5,
+    "collapsed": true
   },
   "right": {
     "id": "fe0994e32739c861",
@@ -176,9 +177,11 @@
   },
   "active": "a0043ed6688f3b72",
   "lastOpenFiles": [
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 3 - Resource Management.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
     "Pasted image 20241226200849.png",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
-    "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 2 - auto.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 1 - Deducing types.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 1 - Accustoming Yourself to C++.md",
@@ -193,12 +196,10 @@
     "Declare non-member functions when type conversions should apply to all parameters.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Declare non-member functions when type conversions should apply to all parameters..md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 6 - Inheritance and Object-Orinted Design.md",
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
     "C++ Notes/CppCon and similar/Understanding Value Categories.md",
     "Untitled.md",
     "Untitled 1.md",
     "Untitled 2.md",
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 3 - Resource Management.md",
     "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
     "C++ Notes/Interview C++ template/Memory.md",
     "C++ Notes/Books notes/Footnote.md",
