@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
+                "file": "C++ Notes/Books notes/Effective Modern C++/Chapter 4 - Smart Pointers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 3 - Moving to Modern C++"
+              "title": "Chapter 4 - Smart Pointers"
             }
           }
         ]
@@ -177,9 +177,11 @@
   },
   "active": "a0043ed6688f3b72",
   "lastOpenFiles": [
+    "README.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 4 - Smart Pointers.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 3 - Resource Management.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
-    "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
     "Pasted image 20241226200849.png",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 2 - auto.md",
@@ -208,7 +210,6 @@
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Указатели.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Списки инициализаторов членов.md",
-    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Семантика перемещения.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи",
     "Books Notes"
