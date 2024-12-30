@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/Books notes/Effective Modern C++/Chapter 4 - Smart Pointers.md",
+                "file": "C++ Notes/Books notes/Effective Modern C++/Chapter 5 - Rvalue References, Move Semantics, and Perfect Forwarding.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 4 - Smart Pointers"
+              "title": "Chapter 5 - Rvalue References, Move Semantics, and Perfect Forwarding"
             }
           }
         ]
@@ -52,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "::value",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,12 +73,12 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 323.5,
-    "collapsed": true
+    "width": 323.5
   },
   "right": {
     "id": "fe0994e32739c861",
@@ -175,15 +175,16 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "a0043ed6688f3b72",
+  "active": "458a1fb62eed5c32",
   "lastOpenFiles": [
-    "README.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 5 - Rvalue References, Move Semantics, and Perfect Forwarding.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 4 - Smart Pointers.md",
+    "README.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 3 - Resource Management.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 5 - Implementations.md",
     "Pasted image 20241226200849.png",
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 2 - auto.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 1 - Deducing types.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 1 - Accustoming Yourself to C++.md",
@@ -209,7 +210,6 @@
     "C++ Notes/Books notes",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Указатели.md",
-    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Списки инициализаторов членов.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи",
     "Books Notes"

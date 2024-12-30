@@ -220,3 +220,105 @@ Because `processWidget`'s `std::shared_ptr` parameter is passed by value, constr
 + Compared to direct use of `new`, make functions eliminate source code duplication, improve exception safety, and, for `std::make_shared` and `std::allocate_shared`, generate code that's smaller and faster.
 + Situations where use of make functions is inappropriate include the need to specify custom deleters and a desire to pass braced initializers.
 + For `std::shared_ptr`s, additional situations where make functions may be ill-advised classes with custom memory management and systems with memory concerns, very large objects, and `std::weak_ptr`s that outlive the corresponding `std::share_ptrs`.
+
+
+
+## Item 22: When using the Pimpl idiom, define special member functions in the implementation file.
+_Pimpl_ ("pointer to implementation) _Idiom_ us the technique whereby data members of a class replaces with a pointer to an implementation class (or struct), data members that used to be in the primary class put into implementation class, and those data members access through the pointer. 
+
+When as data members used types like `std::string`, `std::vector`, user-defined types, etc., headers for those types must be present for class to compile, and that means that class clients must include them as well. That speeds compilation and reduce clients dependencies on headers.  
+
+Applying the Pimpl Idiom in C++98 could replace data members with a raw pointer to a struct that has been declared, but not defined. 
+```c++
+// widget.h
+class Widget {
+public:
+    Widget();
+    ~Widget();
+    ..
+private:
+    struct Impl;
+    Impl* pImpl;
+};
+```
+Part 2 is the dynamic allocation and deallocation of the object that holds the data members that used to be in the original class.
+```c++
+// widget.cpp
+
+#include "widget.h"
+#include "gadget.h"
+#include <string>
+#include <vector>
+
+struct Widget::Impl {
+    std::string name;
+    std::vector<double> data;
+    Gadget g1, g2, g3;
+};
+
+Widget::Widget()
+    : pImpl(new Impl)
+{}
+
+Widget::~Widget()
+{ delete pImpl; }
+```
+
+Applying offer by C++11 smart pointers a little bit tricky. Simple use `std::unique_ptr<Impl> pImpl` will cause compilation error during attempt create `Widget` object. The issue arises due the code that's generated for `Widget` object destruction. In the class definition using `std::unique_ptr` we don't need to declare a destructor since default generated destructor suppose to work fine, the compiler inserts code that call the destructor for class members. `std::unique_ptr<Impl> pImpl` will use default deleter, which uses `delete` on the raw pointer inside the `std::unique_ptr`. Prior to using `delete`, implementations typically have the default deleter employ `static_assert` to ensure that the raw pointer doesn't point to an incomplete type, which will fails in our case, since `Widget's` destructor, like all compiler-gernerted special member functions, is implicitly `inline`. 
+
+To fix the problem, code that destroy `std::unique_ptr<Widget::Impl>` should be put in place where `Widget::Impl` is complete type - after definition. That means that `Widget` destructor should be implemented in cpp file. Destructor body also can be defined with `= default`. 
+The declaration of a destructor prevents compilers from generating the move operations, if move support required - move function should be declared "manually". Since the compiler-generated move assignment operator need to destroy the object pointed by `pImpl` before reassigning it, incomplete type assert can rise again, solution same as for destructor.
+```c++
+// widget.h
+class Widget {
+public:
+    Widget();
+    ~Widget();
+
+    Widget(Widget&& rhs);
+    Widget& operator=(Widget&& rhs);
+    ..
+private:
+    struct Impl;
+    std::unique_ptr<Impl> pImpl;
+};
+```
+
+```c++
+// widget.cpp
+struct Widget::Impl {
+    std::string name;
+    std::vector<double> data;
+    Gadget g1, g2, g3;
+};
+
+Widget::Widget()
+    : pImpl(std::make_uniquie<Impl>())
+{}
+
+Widget::~Widget() = default;
+
+Widget::Widget(Widget&& rhs) = default;
+Widget& Widget::operator=(Widget&& rhs) = default;
+```
+
+Copy operation supports require also manual implementation, since compilers won't generate copy operations for move-only types like `std::unique_ptr` and even if they did, the generated functions would copy only the `std::unique_ptr` (i.e., perform a _shallow copy_), while we want to copy what the pointer points to (i.e., perform a _deep copy_). Rather than copy the fiends one by one, better take advantage of the fact that compilers will create the copy operation for `Impl`, and these operations will copy each field automatically 
+```c++
+Widget::Widget(const Widget& rhs)
+    : pImpl(std::make_unique<Impl>(*rhs.pImpl))
+{}
+Widget& Widget::operator=(const Widget& rhs)
+{
+    *pImpl = *rhs.pImpl;
+    return *this;
+}
+```
+
+If use `std::shared_ptr` instead `std::unique_ptr`, mentioned advices no longer applied: there'd be no need to declare a destructor, and without a user-declarted destructor compiler will generate move operation.
+
+The difference in behavior between `std::unique_ptr` and `std::shared_ptr` for `pImpl` pointers stems from the differing way these smart pointers supports custom deleters. For `std::unique_ptr`, the type of the deleter is part of the type of the smart pointer, and this makes it possible for compilers to generate smaller runtime data structures and faster runtime code. A consequence of this is that pointer-to types must be complete when compiler-generated special functions (e.g., destructors or move operations) are used. For `std::shared_ptr`, the type of the delete is not part of the type of the smart pointer. This necessitates larger runtime data structures and somehow slower code, but pointed-to types need not be complete when compiler-genereated special functions are employed. 
+
+### Things to Remember
++ The Pimpl Idiom decreases build times by reducing compilation dependencies between class clients and class implementations.
++ For `std::unique_ptr` Pimpl pointers, declare special member functions, in the class header, but implement them in the implementation file. Do this even if the default function implementation are acceptable.
++ The above advice applies to `std::unique_ptr`, but not to `std::shared_ptr`
