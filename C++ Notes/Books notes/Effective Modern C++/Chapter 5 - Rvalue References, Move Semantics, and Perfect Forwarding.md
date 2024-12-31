@@ -62,7 +62,6 @@ Technically, `std::forward` can to all what `std::move` does and thus can be use
 
 
 
-
 ## Item 24: Distinguish universal references from rvalue references. 
 "`T&&`" has two different meanings. One is rvalue reference. Such references bind only to rvalues, and their primary reason for being is to identify objects that may be moved from. 
 The other meaning is _universal references_ (sometimes also called _forwarding references_ since in almost all cases `std::forward` applied to them). Such references looks like rvalue references in the source code, but they can behave as if they were lvalue references. They can bind to `const` or non-`const` objects, to `volatile` or non-`volatile` objects, they can bind to virtually anything. 
@@ -109,7 +108,6 @@ public:
 + If a function template parameter has type `T&&` for a deduced type `T`, or if an object is declared using `auto&&`, the parameter or object is a universal reference. 
 + If the form of the type declaration isn't precisely _type&&_, or of type deduction doesn't occur, _type&&_ denotes an rvalue reference. 
 + Universal reference correspond to rvalue references if they're initialized with rvalues. They correspond to lvalue reference if they're initialized with lvalues. 
-
 
 
 
@@ -411,7 +409,218 @@ class Person {
 ```
 error message appears only _after_ the usual error message, since `static_assert` is in the body of the constructor, but the forwarding code is being part of the member initialization list, precedes it. 
 
-### Things to Remeber
+### Things to Remember
 + Alternatives to the combination of universal references and overloading including the use of distinct function names, passing parameters by lvalue-reference-to-const, passing parameters by value, and using tag dispatch.
 + Constraining template via `std::enable_if` permits the use of universal references and overloading together, but it control the conditions under which compilers may use the universal reference overloads.
 + Universal reference parameters often have efficiency advantages, but they typically have usability disadvantages.  
+
+
+
+## Item 28: Understand reference collapsing.
+When an argument is passed to a template function, the type deduced for the template parameter encodes whether the argument is an lvalue or an rvalue. This happens only when the argument is used to initialize a parameter that's a universal reference, but there's a good reason for the omission: universal references. 
+
+The encoding mechanism is simple. When an lvalue is passed as an argument, `T` is deduced to be an lvalue reference. When an rvalue is passed, `T` is deduced to be a non-refernce. (Note the asymmetry: lvalue are encoded as lvalue references, but rvalues are encoded as non-refrences.). It's also the underlying mechanism through which `std::forward` dies it work. 
+
+References to references are illegal in C++.
+
+When an lvalue is passed to a function template taking a universal reference, 
+```c++ 
+template<typename T>
+void func(T&& param);
+```
+if we take the type deduced for `T` (i.e., `Widget&`) and use it to instantiate the template, we get `void func(Widget& && param)`, a reference to a reference!
+How does the compiler get from the result of taking the deduced type for `T` and substituting it into the template to the following, which is the ultimate function signature? The answer is _reference collapsing_. When compilers generate references to references, reference collapsing dictates what happens next.
+
+If a reference to a reference arises in a context where this is permitted (e.g., during template instantiation), the reference _collapse_ to a since reference according to this rule:
+_If either reference is an lvalue reference, the result is an lvalue reference. Otherwise (i.e., if both are rvalue references) the result is an rvalue reference_.
+
+Reference collapsing is a key part of what makes `std::forward` work. `std::forward`'s job is to cast an lvalue to an rvalue if and only if `T` encodes that the argument passed to function was an rvalue, i.e., if `T` is a non-reference type. 
+```c++
+template<typename T>
+T&& forward(typename 
+             remove_reference<T>::type& param)
+{ return static_cast<T&&>(param); }
+```
+Suppose that the argument passed to template function `f` with universal reference parameter is an lvalue of type `Widget`. Plugging `Widget&` into the `std::forward` implementation yields 
+```c++
+Widget& && forward(typename
+                     remove_refernce<Widget&>::type& param)
+{ return static_cast<Widget& &&>(param); }
+```
+The type trait `std::remove_refernce<Widget&>::type` yields `Widget`, so `std::forward` becomes
+```c++
+Widget& && forward(Widget& param)
+{ return static_cast<Widget& &&>(param); }
+```
+Reference collapsing is also applied to the return type and the cast, and the final result 
+```c++
+Widget& forward(Widget& param)
+{ retun static_cast<Widget&>(param); }
+```
+So, casting `Widget&` has no effect, an lvalue argument passed to `std::forward` will thus return an lvalue reference. 
+If an rvalue of type `Widget` passed to `f`, the deduced type for `f`'s parameter `T` will be simply `Widget`. The call inside `f` to `std::forward` will thus be `std::forward<Widget>`
+```c++
+Widget&& forward(typename 
+                  remove_reference<Widget>::type& param)
+{ return static_cast<Widget&&>(param); }
+
+// Applying std::remove_refernce
+Widget&& forward(Widget& param)
+{ return static_cast<Widget&&>(param); }
+```
+there are no references to references here, so there's no reference collapsing, and this is the final instantiated version of `std::forward` for the call.
+
+A universal references isn't a new kind of references, it's actually an rvalue reference is a context where two conditions are satisfied: 
++ _Type deduction distinguishes lvalue from rvalues._ Lvalues of the type `T` are deduced to have type `T&`, while rvalues of type `T` yields `T` as their deduced type.
++ _Reference collapsing occurs_.
+
+Reference collapsing occurs in four contexts.
++ The first and most common is template instantiation. 
++ The second is type generation for `auto` variables, the details are essentially the same as for templates, because type deduction for `auto` variable is essentially the same as type deduction for templates. 
++ The third is the generation and use of `typedef`'s and alias declarations. If, during creation or evaluation of a `typedef`'s, refences to references arise, reference collapsing intervenes to eliminate them.
++ The final context in which reference collapsing takes place is uses of `decltype`. If, during analysis of a type involving `decltype`, a reference to a reference arises, reference collapsing will kick in to eliminate it. 
+
+### Thing to Remember 
++ Reference collapsing occurs in four contexts: template instantiation, `auto` type generation, creation and use of `typedef`s and alias declarations, and `decltype`.
++ When compilers generate a reference to a reference in a reference collapsing context, the result becomes a single reference. If either of the original references is an lvalue reference, the result is an lvalue reference. Otherwise, it's an rvalue reference. 
++ Universal references are rvalue references in context where type deduction distinguishes lvalues from rvalues and where reference collapsing occurs. 
+
+
+
+## Item 29: Assume that move operations are not present, not cheap, and not used. 
+It would be a mistake to assume that moving all containers is cheap. For some containers, this is because there's not truly cheap way to move their contents. For others, it's because the truly cheap move operations the containers offer come with caveats the container elements can't satisfy. 
+
+Consider `std::array`, it's essentially a built-in array with an STL interface. This is fundamentally different from the other standard containers (such `std::vector`), each of which stores its contents on the heap. Objects of such container type hold (as data members), conceptually, only a pointer to the heap memory staring the contents of the container. (the reality is more complex, but for purposes of this analysis, the differences are not important). The existence of this pointer makes it possible to move the contents of an entire container in constant time: just copy the pointer to the container's contents from the source container to the target, and set the source's pointer to null.
+`std::aray` objects lack such a pointer, because the data for a `std::array`'s contents are stored directly in the `std::array` objects. Assuming that content is a type where moving is faster than copying, moving a `std::array` will be faster than copying. Yet both moving and copying a `std::array` have liner-time computational complexity, because each element in the container must be copied or moved. 
+
+On the other head, `std::string` offers constant-time moves and linear-time copies. That makes it sound like moving is faster than copying, but that may not be the case. Many string implementations employ the _small string optimization_ (SSO). With the SSO, "small" strings (e.g., those with a capacity of no more than 15 characters) are stored in a buffer withing the `std::string` objects; no heap-allocated storage is used. Moving small string using an SSO-based implementation is no faster than copying them, because the copy-only-a-pointer trick that generally underlies the performance advantage of moves over copies isn't applicable.
+
+Some container operations in the STL offer the strong exception safety guarantee and that to ensure that legacy C++98 dependent on that guarantee isn't broken when upgrading to C++11, the underlying copy operations may be replaces with move operations only if the move operations are known to not throw. 
+
+There are thus several scenarios in which C++11's move semantics do you no good:
++ **No move operations**: The object to be moved from fails to offer move operations. The move request therefore becomes a copy request. 
++ **Move not faster**: The object to be moved from has move operations that are no faster than its copy operations. 
++ **Move not usable:** The context in which the moving would take place require a move operation that emits no exceptions, but that operation isn't declared `noexcept`
++ **Source objects is lvalue**: With very few exception only rvalues may be used as source of a move operation 
+
+Often, however, the types code uses are known, and it possible to rely on their characteristics not changing (e.g., whether they support inexpensive move operations). When that's the case, you don't need to make assumption, simply look up the move supports details for the types, if those types offer cheap move operations and objects is been used in contexts where those move operations will be invoked, it's safe to rely on move semantics to replace copy operations with their less expensive more counterparts.    
+
+### Things to Remember 
++ Assume that move operations are not present, not cheap, and no used.
++ In code with known types or support for move semantics, there is no need for assumptions. 
+
+
+
+## Item 30: Familiarize yourself with perfect forwarding failure cases.
+"Forwarding" just means that one function passes, _forwards_, its parameters to another function. The goal is for the second function (the one being forwarded to) to receive the same objects that the first function received. That rules out by-value parameters, because they're copies of what the original caller passed in. Pointer parameters are also ruled out, because we don't want to force callers to pass pointers. 
+
+_Perfect forwarding_ means we don't just forward objects, we also forward their salient characteristics: their types, whether they're lvalues or rvalues, and whether they're `const` or `volatile`. 
+
+Forwarding functions are generic. A logical extension of this genericity is for forwarding function to be _variadic_ templates, accepting any number of arguments
+```c++
+template<typename... Ts>
+void fwd(Ts&&... params)
+{
+    f(std::forward<Ts>(params)...);
+}
+```
+
+Given our target function `f` and our forwarding function `fwd`, perfect forwarding _fails_ if calling `f` with a particular arguments does one thing, but calling `fwd` with the same argument does something different. 
+
+Several kind of arguments lead to this kind of failure. 
+
+#### Braced initializers
+Suppose `f` is declared like `void f(const std::vector<int>& v)`.
+In that case, `f({ 1, 2, 3 });` compiles, but `fwd({ 1, 2, 3 });` doesn't compile, because the use of braced initializer is a perfect forwarding failure case.
+
+All such failure cases have the same cause. In a direct call to `f`, compilers see the arguments passed at the call site, and they see the types of the parameters declared by `T`. They compare the arguments at the call site to the parameter declarations to see if they're compatible, and, if necessary, they perform implicit conversation. When calling `f` indirectly through the forwarding function template `fwd`, compilers no longer compare the arguments passed at `fwd`'s call site to the parameter declarations in `f`, instead the _deduce_ the types of the arguments being passed to `fwd`, and they compare the deduced types to `f`'s parameter declarations. Perfect forwarding fails when either of the following occurs:
++ **Compilers are unable to deduce a type**.
++ **Compilers deduce the "wrong" type.** One source of such divergent behavior would be if `f` were an overloaded function name, and, due to "incorrect" type deduction, the overload of `f` called inside `fwd` were different from the overload that would be invoked if `f` were called directly.
+
+Compilers are forbidden from deducing a type for the experession `{ 1, 2 , 3 }`, because `fwd`'s parameter isn't declared to be a `std::initializer_list`.
+
+Interestingly, type deduction succeed for `auto` variables initialized with a braced initializer. Such variables are deemed to be `std::initializer_list` objects, and this affords a simple workaround for cases where the type the forwarding function should deduce is a `std::initializer_list` - declare a local variable using `auto`, then pass the local variable to the forwarding function. 
+
+#### `0` or `NULL` as null pointers
+When you try to pass `0` or `NULL` as null pointer to a template, type deduction goes awry, deducing an integral type. The result is that neither `0` nor `NULL` can be perfect-forwarded as a null pointer. 
+
+#### Declaration-only integral `static const` data members
+As a general rule, there's no need to defined integral `static const` data member in classes; declarations alone suffice. That's because compilers performs _const propagation_ on such member's value, thus eliminating the need to set aside memory for them.
+```c++
+class Widget {
+public:
+    static const std::size_t MinVals = 28; // declaration
+};
+.. //no defn. for MinVals
+
+std::vector<int> wudgetData;
+widgetData.reserve(Widget::MinVals); // use of MinVals
+```
+The fact that no storage has been set aside for `MinVals`' value in unproblematic. If `MinVals`' address were to be taken (e.g., if somebody created a pointer to `MinVals`), then `MinVals` would require storage (so that the pointer had something to point to), and the code above, though it would compile, would fail at link-time until a definition for `MinVals` was provided. 
+With that in mind, `f(Widget::MinVals)` will compile like `f(28)`, while `fwd(Widget::MinVals)` shouldn't link. 
+
+Passing integral `static const` data members by reference generally requires that they be defined, and that requirement can cause code using perfect forwarding to fail where the equivalent code without perfect forwarding succeeds. 
+
+According to the Standard, passing `MinVals` by reference requires that it be defined. But not all implementations enforce his requirement. Simply provide a definition for the integral `static const` data member in question. Note that definition doesn't repeat the initializer
+
+#### Overloaded function names and template names 
+Suppose our function `f` (the one we keep wanting to forward argument to via `fwd`) can have its behavior customized by passing it a function that does same of its work.
+```c++
+void f(int (*pf)(int)); // pf = "processing function"
+
+int processVal(int value);
+int processVal(int value, int priority);
+
+f(processVal)    // fine
+fwd(processVal); // error
+```
+Compilers know which `processVal` they need: the one matching `f`'s parameter type. They thus choose the `processVal` taking on `int`, and pass the function's address to `f`.
+What makes this work, is that `f`'s declaration lets compilers figure out which version of `processVal` is required. `fwd`, however, being a function template, doesn't have any information about what type it needs, and that makes it impossible for compilers to determine which overload should be passed. Without a type, there can be no type deduction, and without type deductions, we're left with another perfect forwarding failure case. 
+
+The same problem arises if we try to use a function template instead of (or in addition to) an overloaded function name. 
+```c++
+template<typename T>
+T workOnVal(T param)
+{ ... } 
+
+fwd(workOnVal); // error, which instantiation?
+```
+
+The way to get a perfect-forwarding function template to accept an overloaded function name or a template name is to manually specify the overload or instantiation to have forwarded. 
+```c++
+using ProcessFuncType = int (*)(int);
+
+ProcessFuncType processValPtr = processVal;
+
+fwd(processValPtr);
+fwd(static_cast<ProcessFuncType>(workOnVal));
+```
+
+#### Bitfields
+The final failure case for perfect forwarding is when a bitfield is used as a function argument. 
+```c++
+struct IPv4Header {
+    std::uniunt32_t version:4,
+                    IHL:4,
+                    DSCP:6,
+                    ECN:2,
+                    totalLength:16;
+};
+
+void f(std::size_t sz);
+
+IPv4Header h;
+f(h.totalLength);   //fine
+fwd(h.totalLength); //error
+```
+The problem is that `fwd`'s parameter is a reference, and `h.totalLength` is a non-const bitfield. The C++ Standard condemns that "_A non-const reference shall not be bound to a bit-field_". Bitfields may consist of arbitrary parts of machine words (e.g., bits 3-5 of a 32-bit `int`), but there's no way to directly address such things. 
+
+Working around the impossibility of perfect-forwarding a bitfield is easy, once you realize that any function that accepts a bitfield as an argument will receive a _copy_ if of the bitfield's value.
+```c++
+auto length = static_cast<std::uinit16_t>(h.totalLength);
+fwd(length);
+```
+
+### Things to Remember 
++ Perfect forwarding fails when template type deduction fails or when it deduces the wrong type.
++ The kinds of arguments that lead to perfect forwarding failure are brace initializers, null pointers as `0` or `NULL`, declaration-only integral `const static` members, template and overloaded functions names, and bitfields. 
