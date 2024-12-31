@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C++ Notes/Books notes/Effective Modern C++/Chapter 5 - Rvalue References, Move Semantics, and Perfect Forwarding.md",
+                "file": "C++ Notes/Books notes/Effective Modern C++/Chapter 7 - The Concurrency API.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 5 - Rvalue References, Move Semantics, and Perfect Forwarding"
+              "title": "Chapter 7 - The Concurrency API"
             }
           }
         ]
@@ -52,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "::value",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,12 +73,12 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 323.5
+    "width": 323.5,
+    "collapsed": true
   },
   "right": {
     "id": "fe0994e32739c861",
@@ -175,10 +175,12 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "458a1fb62eed5c32",
+  "active": "a0043ed6688f3b72",
   "lastOpenFiles": [
-    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 6 - Lambda Expressions.md",
+    "C++ Notes/Books notes/Effective Modern C++/Chapter 7 - The Concurrency API.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 5 - Rvalue References, Move Semantics, and Perfect Forwarding.md",
+    "C++ Notes/Books notes/Effective C++ 3rd ed/Chapter 2 - Constructors, Destructors, and Assignment Operators.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 4 - Smart Pointers.md",
     "README.md",
     "C++ Notes/Books notes/Effective Modern C++/Chapter 3 - Moving to Modern C++.md",
@@ -205,11 +207,9 @@
     "Untitled 2.md",
     "C++ Notes/The Cherno series/C++/Stack vs Heap.md",
     "C++ Notes/Interview C++ template/Memory.md",
-    "C++ Notes/Books notes/Footnote.md",
     "C++ Notes/Books notes/Effective C++ 3rd ed",
     "C++ Notes/Books notes",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img/Pasted image 20240714151542.png",
-    "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/Указатели.md",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи/img",
     "C++ Notes/Books notes/Джош Лоспинозо. С++ для Профи",
     "Books Notes"
