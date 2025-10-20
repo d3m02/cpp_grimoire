@@ -1,6 +1,6 @@
 
 ## C++ String Interface 
-#### Initial note from cppreference 
+#### Note based on cppreference 
 In cppreference description provided for `std::basic_string`. In fact, it's template which depends on template argument create "different" string:
 
 | Type                          | Definition                         |
@@ -152,4 +152,54 @@ All of them take as argument `int` since function checks character ASCII code. A
 * `std::isgraph()` - checks if a character is a graphical character (digits, letters, punctuation)
 * `std::isblank()` - checks if a character is a blank character (`0x20` and `0x09`)
 * `std::isprint()` - checks if a character is a printing character (isgraph + space)
+
+## Files and Streams
+#### Note based on cppreference
+Similarly to strings, streams in cppreference described as templates `basic_{something}stream` since stream template can be specialized with template parameter of type `char` and `wchar_t`: `std::ifstream == std::basic_ifstream<char>`, `std::wifsteam == std::basic_ifstream<wchar_t>`
+
+
+### Files and Streams 
+Files interaction are represented by `fstream` objects, accessed as sequence of bytes in order of unknown length with no structure (without any understanding of file format). 
+`fsteram` operations includes 
+* `open` - connect the `fstream` object to the file, the file becomes available for used by the program (locked?)
+* `read` - data is copied from the file into the program's memory
+* `write` - data is copied from the program's memory to the file
+* `close` - disconnect the `fstream` object from the file, the file is no longer available for use by the program. 
+For each if these operations, the `fstream` object will call a function in the operating system API. The program will stop and wait while the operation is performed. OS can also restrict amount of opened files by the program, this is also one of reasons why the file should be closed after use.
+During reading/writing data to file data may be stored in temporary memory buffer. It's done to reduce downtime during interacting with physical device. 
+
+### File Streams
+In C++ commonly used two types of `fstream`: 
+* `ofstream` - file stream for writing
+* `ifstream` - file stream for reading
+As there are many different files on a computer, we need to associate a file stream object with the file we are using. The easiest way to open a file is to pass its name to the `ifstream` constructor. This represents a "communication channel" which is used to receive data from the file. Constructor can failed to open file, thus before accessing file it worth it to check is file opened or not.  
+```c++
+#include <fstream>
+std::ifstream ifile("text.txt");
+if (ifile)
+	std::cout << "File opened\n";'
+```
+>The way how `if (ifile)` work is due to implementation of [`operator bool()`](https://en.cppreference.com/w/cpp/io/basic_ios/operator_bool) in base class `std::basic_ios`
+
+We can use `ifile` the same way as `std::cin`. This will read one word at a time and remove all whitespace from the input. But it's not ideal way to work with file stream since it's maybe be not suitable for data structures and can be difficult for error-handling
+```c++
+std::string text;
+while (ifile >> text)
+	std::cout << text << ", ";
+```
+Often it's easier to read a complete line of input from the file with `getline()` functions. It can be either `std::getline(input_stream, string)` or stream member function, function also support optional argument for delimiters. Into input string will be copied whole line except newline character. When end of file will be reached, `getline()` will return `false`, meaning that function can be used inside loops
+```c++
+while (std::getline(ifilem, text))
+	std::cout << text << '\n';
+```
+
+For writing we create a stream object `ofstream`, can write same way as `std::cout`. In fact there no opposite to `getline`.
+
+When `fstream`'s destructor is called, the file is automatically closed, any unsaved data will be written to the file. If and `fstream` object goes out of scope after we have finished with it, we don't need to explicitly call `close()`, however it's good practice to do so.
+
+### Streams and Buffering 
+C++ streams use "buffering" to minimize calls to the operating system. During write operations, data is temporary held in a memory buffer, the size of this buffer is chosen to match the maximum amount of data that the operating system will accept. When the buffer is full, the steam will remove the data from the buffer and send it to the operating system. This is known as "flushing" the output buffer. 
+For `ostream` flush depends on the terminal configuration. Usually this is at the end of every line, `std::cout` is always flushed before the program reads from `std::cin`. `ofstream` is only flushed when the buffer is full. There is no direct way to flush input streams. 
+
+A steam manipulator `std::flush` allows to control when the steam's buffer is flushed. All the data in the buffer is immediately sent to its destination. This cost some performances, thus should only be used if the data really needs to be up date (e.g. log file to find out why a program crashed). 
 
