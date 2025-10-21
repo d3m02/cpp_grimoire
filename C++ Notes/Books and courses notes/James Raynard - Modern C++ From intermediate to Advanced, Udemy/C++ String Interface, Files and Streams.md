@@ -203,3 +203,241 @@ For `ostream` flush depends on the terminal configuration. Usually this is at th
 
 A steam manipulator `std::flush` allows to control when the steam's buffer is flushed. All the data in the buffer is immediately sent to its destination. This cost some performances, thus should only be used if the data really needs to be up date (e.g. log file to find out why a program crashed). 
 
+## Unbuffered Input and Output
+The are some applications where stream buffering is not suitable (e.g. a network application, where data must be transmitted in "packet" of a specific size at specific times). 
+C++ supports lower level operation on streams to bypass stream's buffer. 
+As an example streams member functions `get(char_type& ch)` and `put(char_type ch)` to operate with single character. 
+For reading and writing many characters, there are `read(char_type* s, std::streamsize count)` and `write(const char_type* s, std::streamsize count)`, for which we have to provide our own buffer (for `read()` the buffer must be large enough to store all the data we expect to receive). 
+Member function `gcount()` return the number of characters that were actually received (it can be used to allocate memory, detect partial or incomplete transfers etc)
+```c++
+const auto filesize{10U};
+char filebuf[filesize];
+std::ifstream ifile{"input.txt"};
+if (!ifile)
+	return -1;
+
+ifile.read(filebuf, filesize);
+auto nread = ifile.gcount();
+ifile.close();
+std::cout << "Read " << nread << " bytes\n";
+std::cout.write(filebuf, nread); 
+```
+
+#### cppreference note
+Mentioned above member functions are part of `std::basic_ostream` and `std::basic_istream` template classes. 
+Beside them also exists:
+* From `std::basic_istream<CharT,Traits>`:
+	* `int_type get();` - reads one character and returns it if available, otherwise returns `Traits::eof()`
+	* `basic_istream& get(char_type* s, std::streamsize count, char_type delim = widen('\n'))` - reads characters and stores them into the `s` until in stream not found `delim` or not reached `count` limit, also adds null-character. Almost similar to `read`, but `read` ignores delimiter.
+	* `basic_istream& get(basic_streambuf& strbuf, char_type delim = widen('\n'));` - reads characters and inserts them to the output sequence controlled by the given `basic_streambuf` object. 
+	* `int_type peek()` - reads the next character from the input stream without extracting it
+	* `basic_istream& unget()` - return back to stream last read character, making it available again.
+	* `basic_istream& putback(char_type ch)` - put back character `ch` and make it available for next reading. Similar to `unget`, but `unget` don't have an argument. 
+	* `basic_istream& ignore(std::streamsize count = 1, int_type delim = Traits::eof());` - extracts and discards characters from the input stream until and including `delim`.
+	* `std::streamsize readsome(char_type* s, std::streamsize count);` - read immediately available characters from the input stream and return amount of read characters. Compared to `read()` it's asynchronous non-blokcking call.
+* For both `std::basic_ostream<CharT,Traits>` and `std::basic_istream<CharT,Traits>` exists "position" member functions, with suffix p(ut) and g(et) relatively 
+	* `pos_type tellp/tellg()` - returns the output position indicator
+	* `basic_ostream& seekp/seekg(pos_type pos)` - sets the output absolute position indicator
+	* `basic_ostream& seekp/seekg(off_type off, std::ios_base::seekdir dir)` - set position (positive or negative) relative to `dir` base position, `dir` can be `std::ios_base::beg`, `std::ios_base::cur`, `std::ios_base::end`
+
+### File modes 
+C++ gives us a number of options for opening a file called "modes".
+
+By default, files are opened in `std::ios_base::in` in "text mode" and output files are opened in `std::ios_base::out` actually opened in `std::ios_base::trunc` "truncate mode" - any previous data will be overwritten starting from the begging of the file.
+
+`std::ios_base::app` will open file in append mode - seek to the end before each write (meaning that `seekp()` have no effect) 
+`std::ios_base::binary` - binary mode - the data store in the file will be identical to the data in memory 
+`std::ios_base::ate` - will open {a}t {t}he {e}nd, but allows also use of `seekp()`
+
+Modes are actually bit-masks which we can combine for different modes with logical operator "or": `file.open("text.txt", std::ios::out | std::ios::app)`
+
+Restrictions: 
+* `std::ios::out` only for `fstream` and `ofstream`
+* `std::ios::in` only for `fstream` and `ifstream`
+* `std::ios::trunc` only in output mode 
+* `std::ios::app` can't combine with `std::ios::trunc`, the file will always be opened in output mode. 
+> Note: compiler doesn't provide any error or warnings on restrictions violation and it's classified mostly as undefined behavior
+
+#### cppreference note
+Above I used `std::ios_base::in`, `std::ios:in`, also possible to use `std::fstream::in`, `std::ifstream::in`, even `std::ofstream::in`. This due to how inheritance works: 
+
+```mermaid
+---
+config:
+  layout: elk
+  look: classic
+  theme: dark
+---
+flowchart TD
+    ios_base["std::ios_base"] --> basic_ios["std::basic_ios&lt;CharT, Traits&gt;"]
+    basic_ios -- typedef std::basic_ios&lt;char&gt; --> ios(["std::ios"])
+    basic_ios -- typedef std::basic_ios&lt;wchar_t&gt; --> wio(["std::wios"])
+    basic_ios -- virtual --> basic_istream["std::basic_istream&lt;CharT, Traits&gt;"] & basic_ostream["std::basic_ostream&lt;CharT, Traits&gt;"]
+    basic_istream --> basic_iostream["std::basic_iostream&lt;CharT, Traits&gt;"] & basic_ifstream["std::basic_ifstream&lt;CharT, Traits&gt;"]
+    basic_ostream --> basic_iostream & basic_ofstream["std::basic_ofstream&lt;CharT, Traits&gt;"]
+    basic_istream -- typedef std::basic_istream&lt;char&gt; --> istream(["std::istream"])
+    basic_istream -- typedef std::basic_istream&lt;wchar_t&gt; --> wistream(["std::wistream"])
+    basic_ostream -- typedef std::basic_ostream&lt;char&gt; --> ostream(["std::ostream"])
+    basic_ostream -- typedef std::basic_ostream&lt;wchar_t&gt; --> wostream(["std::wostream"])
+    basic_iostream -- typedef std::basic_iostream&lt;char&gt; --> iostream(["std::iostream"])
+    basic_iostream -- typedef std::basic_iostream&lt;wchar_t&gt; --> wiostream(["std::wiostream"])
+    basic_ifstream -- typedef std::basic_ifstream&lt;char&gt; --> ifstream["std::ifstream"]
+    basic_ifstream -- typedef std::basic_ifstream&lt;wchar_t&gt; --> wifstream["std::wifstream"]
+    basic_ofstream -- typedef std::basic_ofstream&lt;char&gt; --> ofstream["std::ofstream"]
+    basic_ofstream -- typedef std::basic_ofstream&lt;wchar_t&gt; --> wofstream["std::wofstream"]
+    basic_iostream --> basic_fstream["std::basic_fstream&lt;CharT, Traits&gt;"]
+    basic_fstream -- typedef std::basic_fstream&lt;char&gt; --> fstream(["std::fstream"])
+    basic_fstream -- typedef std::basic_fstream&lt;wchar_t&gt; --> wfstream(["std::wfstream"])
+    style ios_base fill:#ff6b6b
+    style basic_ios fill:#ff9999
+    style basic_istream fill:#6bceff
+    style basic_ostream fill:#6bceff
+    style basic_iostream fill:#6bceff
+    style basic_ifstream fill:#90ee90
+    style basic_ofstream fill:#90ee90
+    style basic_fstream fill:#90ee90
+```
+
+In general it's possible to use for any purpose `std::fstream`, but it's not follows [Principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) (use only what is need), can cause performance redundancy (output buffer synchronization when we use file only for reading etc) and actual make some restrictions (in general OS allow multiple descriptors for reading, but since for writing, `fstream` will use both write and read, meaning that where we only read files - we not allow writing in it from other place). 
+
+### Stream Member Functions and State
+* `void open(const char* filename, std::ios_base::openmode mode = std::ios_base::out)` - allows to bind file to stream object after it's initialization, for output if file does not already exist, it will be created (similar statement applies to `std::ofstream` constructor as well). `filename` also can be type of `const std::string&` (since C++11) or `const std::filesystem::path::value_type*`/`const std::filesystem::path&` since C++17
+* `bool is_open() const` - check if the file is opened.
+* `bool good() const` - returns `true` if the input was read successfully.
+* `bool fail() const` - returns `true` if there was a recoverable error (e.g. reading in wrong format).
+* `bool bad() const` - return `true` if there was an unrecoverable error. 
+* `bool clear() const` - restore the stream's state to valid.
+* `bool eof() const` - returns true after the end of file has been reached.
+
+One moment about `eof()` 
+```c++
+std::ifstream ifile{"input.txt"};
+int x{};
+
+/* 
+Incorrect use of eof if file 
+	``
+	1
+	2
+	
+	``
+- ouput result will be `1, 2, 2` since new line is considered not as end of file, stream will ignore emptyline and not modify x
+*/
+while (!ifile.eof()) {
+	ifile >> x;
+	std::cout << x <<", ";
+}
+
+/*
+"correct way" (unless input not)
+	 ``
+	 1
+	 2
+	 abc
+	 3
+	 ``
+- result will be `1, 2` since operator>> will terminate on first non-number character. 
+*/ 
+while (ifile >> x)
+	std::cout << x <<", ";
+
+/* and this where good()/fail() can help to identify incorrect imput*/
+```
+In next example one of implementation for "correct" input handling. Problem when we input not a number - `oprator>>` terminate execution with setting fail flag, incorrect input stay in buffer (which can cause endless loop). Directly we can't flush input buffer - we can only ignore symbols in it. But we don't known how many symbols to ignore - only way is to ignore maximum possible amount of symbols. But it's also not ideal, input "123a" will output "123"
+```c++
+int x{};
+std::cout << "Input a number: ";
+std::cin >> x;
+
+bool success{false};
+while (!success) {
+    if (std::cin.good()) {
+        std::cout << "You entered: " << x << '\n';
+        success = true;
+    } 
+    else if (std::cin.fail()) {
+        std::cout << "Invalid input. Please enter a valid number: ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+```
+(shorter version)
+```c++
+int x{};
+std::cout << "Input a number: ";
+
+while (!(std::cin >> x)) {
+    std::cout << "Invalid input. Please enter a valid number: ";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+```
+
+
+### Stream Manipulators and Formatting
+Manipulator is "something" that gets pushed onto a stream to affect stream's behavior. Some manipulators already presented in `<iostream>` (like `std::endl`, `std::flush`), but there also manipulators from `<iomanip>`
+> Actually, manipulators are in headers `<ios>`, `<istream>`, `<ostream>` and `<iomanip>`.
+
+* `std::boolalpha` - print out bool values as "true" and "false", `std::noboolalpha` to disable
+* `std::setw(int n)` will pad the next data item on the stream field to make it the width of its argument. By default it right-justified, for switching to left-justified - used `std::left`. 
+* `std::left` - _sticky_ manipulator, it will affect whole stream until opposite _sticky_ manipulator not pushed.
+* `std::setfill(CharT c)` - sets the padding character. Also _sticky_ (and reset with `std::setfill(' ')`)
+```c++
+std::cout << std::setfill('.') << std::left 
+          << std::setw(15) << "Penguins" << 5 <<'\n'
+          <<  "Hippopo" << "tamuses" << '\n'
+          << std::setfill(' ') << std::right 
+          << std::setw(15) << "Bear" << 2 <<'\n';
+          
+/*
+Penguins.......5
+Hippopotamuses
+           Bear2
+*/
+```
+
+### Floating-point Output Formats
+C++ by default for relatively small float-point number will output output with 6 significant figures (`std::cout << 3.141'592'653` will display "3.14159"). For large `double` numbers will be provided  scientific notation ("1.00000e-006" represent 1.0000 * 10^-6).
+
+Scientific notation can be force for whole stream with `std::scientific` manipulator. Also with `std::uppercase` 'e' can be forced to 'E' (disabled with `std::nouppercase`). 
+
+The fixed manipulator `std::fixed` will cause floating-point number to be displayed as fixed-point. The number will be displayed to 6 decimal places, truncating or padding with 0 if necessary. Also worth note that `double e{1.602e-19}` with `std::cout << std::fixed << e;` will display "0.000000" since value to small and it's got truncated. 
+
+All mentioned manipulators are _sticky_, meaning that after applying them - unexpectedly stream will remain this changes. Thus it's better to set `std::defaultfloat` after stream being used. 
+
+Manipulator `std::setprecision(int n)` set the precision of the stream(the number of digits that are displayed). 
+ 
+### More from cppreference
+Most of manipulators appliable for both input and output streams. 
+
+* `std::dec`, `std::hex`, `std::oct` - set base field for whole stream 
+> Note: there no manipulator for binary format, but if it's required - can be used `std::bitset` trick: `std::cout << std::bitset<8>{42}`
+* `std::showbase/std::noshowbase` - enable/disable show base for whole stream. Even though it's applies to everything in stream, it have effect only for integer values and when `std::hex` or `std::oct` applied to stream as well.
+* `std::showpoint`/`std::noshowpoint` - enable decimal point character for floating-point values. By default it's disable and `std::cout << 3.0` will show just '3', while with `std::showpoint` output will be `3.00000`. Can be combined with `std::setprecision`, but with precision = 2 to achieve output only "3.0" - all other floats will be also affected. 
+* `std::showpos`/`std::noshowpos` - shows '+' sign for numeric values (both float and integer)
+* `std::skipws`/`std::noskipws` - Enables or disables skipping of leading whitespace by the formatted input functions (enabled by default)
+```c++
+std::istringstream("a b c") >> c1 >> c2 >> c3;
+// c1 = a, c2 = b, c3 = c
+std::istringstream("a b c") >> std::noskipws >> c1 >> c2 >> c3;
+// c2 = s, c3 = ' ', c3 = b
+```
+* `std::uppercase`/`std::nouppercase` - enables the use of uppercase characters in floating-point and hexadecimal integer output
+* `std::unitbuf`/`std::nounitbuf` - enables or disables automatic flushing of the output stream after any output operation. By default stream flushed when buffer overflow, `std::flush` or `std::endl` pushed, when exiting application. `std::cerr` and `std::wcerr` have `std::unitbuf` enabled. 
+* `std::internal` - Sets the adjust field of the stream to internal. Addition to `std::left` and `std::right`.
+* `std::hexfloat` - in addition to `std::fixed`, `std::scientific` - change representation of float values. `std::defaultfloat` doesn't affect other float manipulators (like `std::setprecision`)
+* `std::ws` - Discards leading whitespace from an input stream. Input-only manipulator. 
+* `std::ends` - insert null-symbol. Unlike `std::endl`, does not flush the stream. Typically used with `std::ostrstream`
+* `std::emit_on_flush`/`std::noemit_on_flush` - C++20 manipulator for `std::basic_syncbuf`, toggles whether it emits (i.e., transmits data to the underlying stream buffer) when flushed, output-stream only. In reality used not so often, in theory with multiple threads which writes into one stream and required output atomicity, but in most cases it's can be achieved with `std::mutex`/`std::lock_guard`.
+* `std::flush_emit` - another C++20 manipulator for `std::basic_syncbuf`, add `buf.emit()` with `os.flush()`, output-only.
+* `std::setbase(int base)` - sets the numeric base of the stream, only work with base == 8, 10, 16. 
+* `get_money(MoneyT& mon, bool intl = false)`/`put_money(const MoneyT& mon, bool intl = false)`- operate with money format input/output (like "$1,234.5", "2.22 USD", "3.33") and save into integer variable where 2 last symbols - 
+* [`std::get_time`](https://en.cppreference.com/w/cpp/io/manip/get_time.html)/[`std::put_time`](https://en.cppreference.com/w/cpp/io/manip/put_time.html) - operate with time format. Quite powerful and flexible thing which support different formats, locals etc, like 
+```c++
+std::cout.imbue(std::locale("ru_RU.utf8"));
+std::cout << "ru_RU: " << std::put_time(&tm, "%c %Z") << '\n';
+//ru_RU: Ср. 28 дек. 2011 10:21:16 EST
+```
+* `std::quoted(s, CharT delim = CharT('"'), CharT escape = CharT('\\')` - allows insertion and extraction of quoted strings. `s` can be type of `const CharT*`, `const std::basic_string<CharT, Traits, Allocator>&`, `std::basic_string_view<CharT, Traits>`, `std::basic_string<CharT, Traits, Allocator>&` (in another words - accept any string). `delim` can be any character, so 
+* `std::setiosflags(std::ios_base::fmtflags mask);`/`std::resetiosflags( std::ios_base::fmtflags mask);` - set or unset specific format flag mask. `std::resetiosflags(std::ios_base::basefield)` 
