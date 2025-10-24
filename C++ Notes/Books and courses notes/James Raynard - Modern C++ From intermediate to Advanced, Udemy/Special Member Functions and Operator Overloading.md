@@ -155,3 +155,173 @@ std::cout << Test(5.2).i;
 ```
 > This also can be avoided using `{}` initialization: `Test{5.2}.i` will not compile
 
+## Operators and Overloading 
+C++ defines 3 types of operators:
+* Unary operators - operators which takes a single argument 
+* Binary operators - operators which takes two arguments
+* Ternary operator - conditional operator `?:`
+
+Operators takes either one or two arguments, can be member function or non-member functions (which in most cases define will operator be unary or binary).
+
+C++ allows to write own operators implementation , which is called "overloading" the operators. We can only use the symbols which are supplied for built-in operators and use syntax, provide similar semantics to built-in operators. 
+
+Overloaded operators (but not the built-in operators) can be called using function notation:
+```c++
+std::string str = "Hello, ";
+str.operator+=("world");  // same as str += "world";
+operator<<(operator<<(std::cout, str), '\n'); // same as std::cout << str << '\n';
+```
+
+Restrictions: 
+* Built-in logical AND and OR (`operator&&` and `operator||`) have a guaranteed order of execution (from left to right) and can "short-circuit" (when rest execution not necessary, like `a && b && c`, if `Aa && b` return false - no need to check `&& c`) Overloading of those operators can't provide such behavior. 
+* The `operator::` (scope resolution), `operator.*` (member access), `operator.` (member access through pointer to member), and `operator?:` (ternary conditional) cannot be overloaded.
+* `operator&` and `operator,` already defined for classes and redefinition will cause confusion
+> From cppref: If the unary `&` is applied to an lvalue of incomplete type and the complete type declares an overloaded `operator&`, it is unspecified whether the operator has the built-in meaning or the operator function is called. It's mostly case for forward declaration
+
+### Note from cppreference 
+There are other restrictions as well: 
+* New operators such as `operator**`, `operator<>`, or `operator&|` cannot be created.
+* The overload of `operator->` must either return a raw pointer, or return an object (by reference or by value) for which operator is in turn overloaded.
+* An operator function must have at least one function parameter or implicit object parameter whose type is a class, a reference to a class, an enumeration, or a reference to an enumeration. 
+Literally this mean that for built-in types overloading not allowed (like `{cpp} int operator+(int a, int b)`. "_or implicit object parameter_" - meaning that classes member-unary operators overloading allowed (since they will have hidden `this` parameter). 
+* It is not possible to change the precedence, grouping, or number of operands of operators. 
+
+## Keyword `friend` 
+`friend` keyword allows to make an exception in access to class private members. 
+Normally a non-member function can only access a class's public members, however class can declare a non-member function to be a "friend", which "grants" access to all class's members 
+```c++
+class Test { 
+	int m_i {};
+public: 
+	friend void print(const Test&);
+};
+
+void print (const Test& test) {
+	std::cout << "i = " << test.m_i << '\n';
+}
+```
+> Which now looks closer to what compiler actually do with member functions ([[Review of C++#Class functions in global scope]]), from some perspective, it's equal to explicit defining member functions with hidden `this`.
+
+We also can declare another class access to be a friend, this gives all the member function of friend-class access to class members.
+```c++
+class Test {
+    int m_i {};
+    friend class Example; 
+};
+
+class Example {
+public:
+	void print (const Test& test) {
+		std::cout << "i = " << test.m_i << '\n';
+	}
+};
+
+Test test;
+Example example;
+example.print(test);
+// Fun fact - example also work if write 
+// Example {}.print({});
+```
+
+To avoid using friend, we can create a member function which implements the functionality of the operator. This member function has direct access to all members, the non-member function then calls this member function. 
+```c++
+class Test { 
+	int m_i {};
+public: 
+	void print() const { 
+		std::cout << "i = " << test.m_i << '\n';
+	}
+};
+
+void print (const Test& test) {
+	test.print();
+}
+```
+### Small research with Gemini
+Defining friend member function without class object as argument is almost meaningless, except cases when only required to get access to class private static members.
+```c++
+class Test { 
+	static int s_counter;
+public: 
+	friend void print();
+};
+
+int Test::s_counter{5};
+
+void print () {
+	std::cout << "counter = " << Test::s_counter << '\n';
+}
+```
+
+
+## Member and Non-member Operators
+"if you can, you should implement as a member functions, this will provide direct access to the private data, we don't need any friends or delegate member functions. And also, it keeps all the code that is related to the class together in the class definition" 
+> Objection: [[Chapter 4 - Design and Declarations#Item 23 Prefer non-member non-friend functions to member functions.|Item 23 from Effective C++: prefer non-member non-friend functions to member functions]]
+
+Binary _member_ operators don't work in some cases if we need a type conversion.
+> Here can be confusion, even though operator looks like unary, it's actually have hidden second argument to `this`. 
+```c++
+struct String{ 
+	String(const std::string& arg) : m_str{arg} { }
+	String operator+(const String& arg) { return m_str + arg.m_str;}
+    std::string m_str{};
+};
+
+int main(){
+    String w {"world"};
+    String we = w + std::string{" end\n"};
+    String hw = std::string{"Hello "} + w; // error - can't find in std::string class member-operator overload for struct String 
+}
+```
+
+Non-member function solve this problem, compiler will use this function if will be able to convert input to arguments type
+```c++
+String operator+(const String& lhs, const String& rhs) { 
+	return lhs.m_str + rhs.m_str;
+}
+```
+
+Operators which change the state of the object are best implemented as member functions (`operator+=`, `operator++` and similar) or operators which are closely related to member type (like dereference `operator*`). Some operators can be only defined as member functions - assignment `operator=`, subscript `operator[]`, function call `operator()`, arrow `operator->`
+
+> Some recommendations and examples also exist in [[Chapter 4 - Design and Declarations#Item 24 Declare non-member functions when type conversions should apply to all parameters.|Effective C++ Item 24]] 
+
+## Addition operators 
+> Technically provided implementation suits not only addition operators, but any arithmetic operator. 
+
+One on approach how to implement for our class arithmetic operators is define non-member overload for `operator+` which will call member overload `operator+=`. In this case we need to maintain only one function, (`operator+=`), we don't need to define any friends for that, compiler will be able to use implicit conversions - overall we will complain with built-in types behavior.  
+```c++
+class OInt {
+public:
+	OInt (int i) : m_i {i} {};
+	OInt& operator+=(const OInt& rhs) {
+		m_i += rhs.m_i;
+		return *this;
+	}
+private:
+	int m_i{};
+};
+
+OInt operator+(const OInt& lhs, const OInt& rhs) {
+	OInt tmp{lhs};
+	tmp += rhs;
+	return tmp;
+	// or 
+	return OInt{lhs} += rhs;
+} 
+```
+
+> More advance technic suggested by gemini:
+```c++
+// concept checks that operator+= exists and result type correct
+template <typename LhsT, typename RhsT>
+concept Addable = requires(LhsT a, const RhsT& b) {
+    { LhsT(a) += b } -> std::same_as<LhsT&>; 
+};
+
+// if constrains met - generate such operator overload for any supported class 
+template <typename LhsT, typename RhsT>
+requires Addable<LhsT, RhsT>
+LhsT operator+(const LhsT& lhs, const RhsT& rhs) {
+    return LhsT(lhs) += rhs; 
+}
+```

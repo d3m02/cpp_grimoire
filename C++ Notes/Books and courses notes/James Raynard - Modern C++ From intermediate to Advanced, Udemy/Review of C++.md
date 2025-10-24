@@ -1,4 +1,4 @@
-## `using IntVec = vector<int>` vs `typedef vector<int> IntVec;`
+	## `using IntVec = vector<int>` vs `typedef vector<int> IntVec;`
 In general results and idea similar - define alias which compiler will use to replace types.
 
 #### (research with chatGPT)
@@ -16,10 +16,18 @@ because `T` is not type, but template parameter, set of types.
 ## Class functions in global scope 
 Class functions are actually located in global scope and have hidden first argument class object (`this`). 
 ### (research with chatGPT)
-And technically it's possible to call
-```c++
-A::f(&a, 42);
+And technically it's possible to call `a.f(42)` as 
+ `{c++} A::f(&a, 42);`, or rather say that some compilers can allow 
+```c++ 
+((void(*)(A*, int))&A::f)(&a, 42);
+// or equal to
+reinterpret_cast<void(*)(A*, int)>(&A::f)(&a, 42);
+// or 
+using gpf = void (*)(A* const);
+gpf pf = reinterpret_cast<gpf>(&A::f);
+pf(&a);
 ```
+
 
 Also this is why static functions don't have `this` - they don't have that hidden argument. 
 
