@@ -285,20 +285,19 @@ Operators which change the state of the object are best implemented as member fu
 
 > Some recommendations and examples also exist in [[Chapter 4 - Design and Declarations#Item 24 Declare non-member functions when type conversions should apply to all parameters.|Effective C++ Item 24]] 
 
-## Addition operators 
-> Technically provided implementation suits not only addition operators, but any arithmetic operator. 
 
+## ## Binary arithmetic operators 
 One on approach how to implement for our class arithmetic operators is define non-member overload for `operator+` which will call member overload `operator+=`. In this case we need to maintain only one function, (`operator+=`), we don't need to define any friends for that, compiler will be able to use implicit conversions - overall we will complain with built-in types behavior.  
 ```c++
 class OInt {
 public:
-	OInt (int i) : m_i {i} {};
+	OInt (int i) : m_val {i} {};
 	OInt& operator+=(const OInt& rhs) {
-		m_i += rhs.m_i;
+		m_i += rhs.m_val;
 		return *this;
 	}
 private:
-	int m_i{};
+	int m_val{};
 };
 
 OInt operator+(const OInt& lhs, const OInt& rhs) {
@@ -325,3 +324,117 @@ LhsT operator+(const LhsT& lhs, const RhsT& rhs) {
     return LhsT(lhs) += rhs; 
 }
 ```
+
+
+
+## Comparison operators
+* Equality and inequality operators 
+```c++
+bool operator==(const OInt& lhs, const OInt& rhs){
+	return lhs.m_val == rhs.m_val
+}
+bool operator!=(const OInt& lhs, const OInt& rhs){
+	return !(lhs == rhs);
+}
+```
+
+Less-than operator quite important since it's used actively used in STL sort functions and for some containers' insertion functions. 
+The `operator<` is sufficient to perform all comparison operations:
+* `a <= b`: `!(b < a)`
+* `a >= b`: `!(a < b)`
+* `a > b`: `(b < a)`
+and even equality, although it's not typical
+* `a == b`: `!(a < b) && !(b < a)`
+* `a != b`: `(a < b) || (b < a)`
+
+```c++
+bool operator<(const OInt& lhs, const OInt& rhs){
+	return lhs.m_val < rhs.m_val;
+}
+
+inline bool operator>(const OInt& lhs, const OInt& rhs) { 
+	return rhs < lhs; 
+}
+inline bool operator<=(const OInt& lhs, const OInt& rhs) { 
+	return !(lhs > rhs); 
+}
+inline bool operator>=(const OInt& lhs, const OInt& rhs) { 
+	return !(lhs < rhs); 
+}
+```
+### Note from cppreference:
+Also possible implementation is to provide implementation for three-way comparison (similarly to `std::memcmp` or `std::string::compare` or C++20 `operator<=>`) and implement 
+```c++
+bool operator==(const X& lhs, const X& rhs) { return cmp(lhs, rhs) == 0; }
+bool operator!=(const X& lhs, const X& rhs) { return cmp(lhs, rhs) != 0; }
+bool operator< (const X& lhs, const X& rhs) { return cmp(lhs, rhs) <  0; }
+bool operator> (const X& lhs, const X& rhs) { return cmp(lhs, rhs) >  0; }
+bool operator<=(const X& lhs, const X& rhs) { return cmp(lhs, rhs) <= 0; }
+bool operator>=(const X& lhs, const X& rhs) { return cmp(lhs, rhs) >= 0; }
+```
+
+
+## Prefix and postfix operators
+Prefix (`--i`/`++i`) and postfix(`i--`/`i++`) operators: postfix `operator+(int)` returns unchanged value (by creating copy in place, equal to `temp = i; i+=1; return temp`). This temporary copy can add additional redundancy, but modern compilers can notice it and remove, when temporary object not used. `int` argument in overload operator signature used to define postfix operator overload.
+```c++
+OInt& operator++() {
+	++m_val;
+	return *this;
+}
+// Note that return is by value, not by reference.
+OInt operator++(int) {
+	OInt temp(*this);
+	++(*this);  // or operator++();
+	return temp;
+}
+```
+
+
+## Function Call Operator
+Procedural programming involves a sequence of commands, organized into functions/procedures that are executed in a specific order to solve a problem. Classical C++ follows procedural programming, but from C++11 become possible to use functional programming.
+
+Functional programming involves a tree of functions calls which transform data. In can be chain on functions calls in which one function takes some data and return data, which can become input data for next function. Functional programming in C++ possible using _callable objects_ using functions pointers.
+```c++
+void func(int, int);
+void (*func_ptr)(int, int) = func;
+func_ptr(1, 2);
+```
+
+C++ classes can define a function call operator. This allows to make callable objects - the object of this class will be callable objects, but continue behave as data variable. Such classes called "_functor_". 
+```c++
+struct Divisible {
+	Divisible(int d) : divisor{d} {}
+	bool operator()(int num) {
+		return (num & divisor == 0)
+	}
+private:
+	int divisor{1};
+}
+
+void For_each(const std::vector<int>& vec, Divisible is_div) {
+	for (const auto& v : vec)
+		if (is_div(v))
+			std::cout << v << " is divisible\n"l;
+}
+
+std::vector numbers{1, 4, 7, 11, 12};
+Divisible divisible_by_three{3};
+For_each(numbers, divisible_by_three);
+```
+
+## Stream operators
+Overloading stream operators can allow to print/read data not only from console, but from files etc. 
+```c++
+class OInt {
+public:
+	void print(std::ostream& os) const {
+		os << "val = " << m_val;
+	}
+}
+std::ostream& operator<<(std::ostream& os, const OInt& oint) {
+	oint.print(os);
+	return os;
+}
+```
+
+> List of operators can be find in [[Notes#C++ operators' signatures]]  

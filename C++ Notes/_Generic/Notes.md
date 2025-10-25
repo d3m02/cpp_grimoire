@@ -83,3 +83,93 @@ auto angle = 90.0_deg;  // пользовательский суффикс
 ```
 
 **Note:** User literals can only start with `_`.
+
+---
+## C++ operators' signatures 
+### Unary Arithmetic operators
+
+|                     | Inside class              | Outside class              |
+| ------------------- | ------------------------- | -------------------------- |
+| Plus `+a`           | `T T::operator+() const;` | `T operator+(const T& a);` |
+| Minus ` -a `        | `T T::operator-() const;` | `T operator-`              |
+| Bitwise NOT<br>`~a` | `T T::operator~() const;` | `T operator~(const T& a);` |
+### Binary Arithmetic operators
+It's good practice to implement non-member binary operators overloads as callers of members assignment operator
+
+|                                  | Inside class                          | Outside class                            |
+| -------------------------------- | ------------------------------------- | ---------------------------------------- |
+| Addition `a + b`                 | `T T::operator+(const T2& b) const;`  | `T operator+(const T& a, const T2& b);`  |
+| Subtraction <br>`a - b`          | `T T::operator-(const T2& b) const;`  | `T operator-(const T& a, const T2& b);`  |
+| Multiplication<br>`a * b`        | `T T::operator*(const T2& b) const;`  | `T operator*(const T& a, const T2& b);`  |
+| Division `a / b`                 | `T T::operator/(const T2& b) const;`  | `T operator/(const T& a, const T2& b);`  |
+| Remainder `a % b`                | `T T::operator%(const T2& b) const;`  | `T operator%(const T& a, const T2& b);`  |
+| Bitwise AND `a & b`              | `T T::operator&(const T2& b) const;`  | `T operator&(const T& a, const T2& b);`  |
+| Bitwise OR `a \| b`              | `T T::operator\|(const T2& b) const;` | `T operator\|(const T& a, const T2& b);` |
+| Bitwise XOR `a ^ b`              | `T T::operator^(const T2& b) const;`  | `T operator^(const T& a, const T2& b);`  |
+| Bitwise left <br>shift `a << b`  | `T T::operator<<(const T2& b) const;` | `T operator<<(const T& a, const T2& b);` |
+| Bitwise right <br>shift `a >> b` | `T T::operator>>(const T2& b) const;` | `T operator>>(const T& a, const T2& b);` |
+
+### Assignment operators
+
+| Operator name                     | Inside class                       | Inside class                          |
+| --------------------------------- | ---------------------------------- | ------------------------------------- |
+| Simple `a = b`                    | `T& T::operator =(const T2& b);`   | N/A                                   |
+| Addition `a += b`                 | `T& T::operator +=(const T2& b);`  | `T& operator +=(T& a, const T2& b);`  |
+| Subtraction<br>`a -= b`           | `T& T::operator -=(const T2& b);`  | `T& operator -=(T& a, const T2& b);`  |
+| Multiplication<br>`a *= b`        | `T& T::operator *=(const T2& b);`  | `T& operator *=(T& a, const T2& b);`  |
+| Division `a /= b`                 | `T& T::operator /=(const T2& b);`  | `T& operator /=(T& a, const T2& b);`  |
+| Remainder `a %= b`                | `T& T::operator %=(const T2& b);`  | `T& operator %=(T& a, const T2& b);`  |
+| Bitwise AND `a &= b`              | `T& T::operator &=(const T2& b);`  | `T& operator &=(T& a, const T2& b);`  |
+| Bitwise OR `a \|= b`              | `T& T::operator \|=(const T2& b);` | `T& operator \|=(T& a, const T2& b);` |
+| Bitwise XOR `a ^= b`              | `T& T::operator ^=(const T2& b);`  | `T& operator ^=(T& a, const T2& b);`  |
+| Bitwise left <br>shift `a <<= b`  | `T& T::operator <<=(const T2& b);` | `T& operator <<=(T& a, const T2& b);` |
+| Bitwise right <br>shift `a >>= b` | `T& T::operator >>=(const T2& b);` | `T& operator >>=(T& a, const T2& b);` |
+### Increment/decrement operators
+
+|                      | Inside class            | Outside class              |
+| -------------------- | ----------------------- | -------------------------- |
+| Pre-increment `++a`  | `T& T::operator++();`   | `T& operator++(T& a);`     |
+| Pre-decrement `--a`  | `T& T::operator--();`   | `T& operator--(T& a);`     |
+| Post-increment `a++` | `T T::operator++(int);` | `T operator++(T& a, int);` |
+| Post-decrement `a--` | `T T::operator--(int);` | `T operator--(T& a, int);` |
+### Logical operators
+
+|                         | Inside class                               | Outside class                                 |
+| ----------------------- | ------------------------------------------ | --------------------------------------------- |
+| Negation `!a`           | `bool T::operator!() const;`               | `bool operator!(const T &a);`                 |
+| AND `a && b`            | `bool T::operator&&(const T2 &b) const;`   | `bool operator&&(const T &a, const T2 &b);`   |
+| Inclusive OR `a \|\| b` | `bool T::operator\|\|(const T2 &b) const;` | `bool operator\|\|(const T &a, const T2 &b);` |
+### Comparison operators
+Implement `operator<` (it's actively used in STL), `operator==` (possible from `operator<`, but for simplicity and better separately) and from them other operators. 
+
+|                                           | Inside class                            | Outside class                              |
+| ----------------------------------------- | --------------------------------------- | ------------------------------------------ |
+| Equal to `a == b`                         | `bool T::operator==(const U& b) const;` | `bool operator==(const T& a, const U& b);` |
+| Not equal to `a != b`                     | `bool T::operator!=(const U& b) const;` | `bool operator!=(const T& a, const U& b);` |
+| Less than `a < b`                         | `bool T::operator<(const U& b) const;`  | `bool operator<(const T& a, const U& b);`  |
+| Greater than `a > b`                      | `bool T::operator>(const U& b) const;`  | `bool operator>(const T& a, const U& b);`  |
+| Less than <br>or equal to `a <= b`        | `bool T::operator<=(const U& b) const;` | `bool operator<=(const T& a, const U& b);` |
+| Greater than <br>or equal to `a >= b`     | `bool T::operator>=(const U& b) const;` | `bool operator>=(const T& a, const U& b);` |
+| Three-way comparison <br>C++20  `a <=> b` | `R T::operator<=>(const U& b) const;`   | `R operator<=>(const T& a, const U& b);`   |
+
+### Member access operators
+
+|                                          | Inside class              | Outside                     |
+| ---------------------------------------- | ------------------------- | --------------------------- |
+| Subscript `a[b]`                         | `R& T::operator[](S b);`  | N/A                         |
+| C++23 subscript `a[...]`                 | `R& T::operator[](...);`  | N/A                         |
+| Indirection `*a`                         | `R& T::operator*();`      | `R& operator*(T a);`        |
+| Address-of `&a`                          | `R* T::operator&();`      | `R* operator&(T a);`        |
+| Member of object `a.b`                   | not overloadable          | not overloadable            |
+| Member of pointer `a->b`                 | `R* T::operator->();`     | N/A                         |
+| Pointer to <br>member of object `a.*b`   | not overloadable          | not overloadable            |
+| Pointer to <br>member of pointer `a->*b` | `R& T::operator->*(S b);` | `R& operator->*(T a, S b);` |
+### Other operators
+
+|                                  | Inside class                                | Outside class                       |
+| -------------------------------- | ------------------------------------------- | ----------------------------------- |
+| Function call `a(a1, a2)`        | `R T::operator()(Arg1 &a1, Arg2 &a2, ...);` | N/A                                 |
+| Comma `a, b`                     | `T2& T::operator,(T2 &b);`                  | `T2& operator,(const T &a, T2 &b);` |
+| conditional operator `a ? b : c` | not overloadable                            | not overloadable                    |
+
+---
