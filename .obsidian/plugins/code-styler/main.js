@@ -20043,3 +20043,5 @@ var CodeStylerPlugin = class extends import_obsidian9.Plugin {
 @simonwep/pickr/dist/pickr.min.js:
   (*! Pickr 1.9.0 MIT | https://github.com/Simonwep/pickr *)
 */
+
+/* nosourcemap */
