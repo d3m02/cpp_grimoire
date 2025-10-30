@@ -1,0 +1,19 @@
+.callout[data-callout="code-ref"] {
+    --callout-color: 200, 250, 255;
+    padding: 4px 8px;
+    background-color: rgb(var(--callout-color));
+}
+
+.callout[data-callout="code-ref"] > .callout-title {
+    padding: 0;
+    margin: 4px 0 4px 0;
+}
+
+.callout[data-callout="code-ref"] > .callout-content {
+    padding: 0;
+}
+
+.callout[data-callout="code-ref"] > .callout-content > :first-child {
+    margin-top: 0;
+    margin-bottom: 0;
+}
