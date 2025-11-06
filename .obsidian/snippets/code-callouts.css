@@ -4,6 +4,10 @@
     background-color: rgb(var(--callout-color));
 }
 
+.callout:is([data-callout="code-ref"]) .callout-icon {
+    display: none;
+}
+
 .callout[data-callout="code-ref"] > .callout-title {
     padding: 0;
     margin: 4px 0 4px 0;
