@@ -44,7 +44,7 @@ std::function<bool(const std::unique_ptr<Widget>&,
 > `std::unordered_map` key part is `const`, so the type of `std::pair` (which is what `std::unordered_map` is). In case for 
 ```c++
 std::unordered_map<std::string, int> m;
-for (const std::pair<std::stringm int>& p : m) ...
+for (const std::pair<std::string, int>& p : m) ...
 ```
 > it's not `std::pair<std::string, int>`, it's `std::pair<const std::string, int>`. As result, compilers will strive to find a way to convert `std::pair<const std::string, int>` objects to `std::pair<std::string, int>` objects. They'll succeed by creating a temporary object of type that `p` wants to bind to by coping each object in `m`, then binding the reference `p` to that temporary object.
 
