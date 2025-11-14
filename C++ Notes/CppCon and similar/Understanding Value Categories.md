@@ -12,7 +12,7 @@ In the [C Programming Language, Kernighan and Ritchie](https://en.wikipedia.org/
  > An object is a region of storage.
  
 _rvalue_ - an expression that's not an _lvalue_. 
-From example `x[i + 1] = abs(p-value);` we can see, that left operand of assignment can be only _lvalue_, while right operand = either _rvalue_ or _lvalue_
+From example `{cpp}x[i + 1] = abs(p-value);` we can see, that left operand of assignment can be only _lvalue_, while right operand = either _rvalue_ or _lvalue_
 
 The reason of making this distinction between rvalues and lvalues is simply to help compilers assume what don't necessarily occupy storage thus code generations get more freedom to optimize code. 
 For example,
@@ -42,7 +42,7 @@ However, string literals such as "xyzzy" are lvalues since they are arrays somew
 
 lvalues can be used as rvalu, like assigning lvalue expression `n` to lvalue `m`. This is called _lvalue-to-rvalue conversion_.
 
-lvalue and rvalue also apply for operators, like binary `operator+`: obviously, those expressions must have suitable types, but each operand can be either a lvalue or rvalue. But result will be compiler-generated temporary rvalues (thus `n + m = 1` equal to `1 = n` error case).
+lvalue and rvalue also apply for operators, like binary `{cpp}operator+`: obviously, those expressions must have suitable types, but each operand can be either a lvalue or rvalue. But result will be compiler-generated temporary rvalues (thus `n + m = 1` equal to `1 = n` error case).
 
 
 Unary* operator yields to lvalue. A pointer `p` can point to an object, so `*p` is an lvalue. 
@@ -79,20 +79,19 @@ Now consider code like
 S foo();            //returns rvalue of type S
 int j = foo().m_y;  // access m_y mamber of rvalue
 ```
-Again, uses a base+offset calculation to access `foo().y`, therefore, the return value of foo() must have a base address, which mean that it's occupies data storage. 
+Again, uses a base+offset calculation to access `{cpp}foo().y`, therefore, the return value of foo() must have a base address, which mean that it's occupies data storage. 
 
-Also, enums (`enum { MAX = 100 };` are rvalues: we can't assign to it anything, we can't take it's address. `MAX` yields an integer rvalue (like pointer but for rvalues?).
-On the other hand, `int const MAX = 100` - it's non-modifiable lvalue. Still we can't assign anything to it, but it's occupy memory and we can take pointer to it. 
-
+Also, enums (`{cpp}enum { MAX = 100 };` are rvalues: we can't assign to it anything, we can't take it's address. `MAX` yields an integer rvalue (like pointer but for rvalues?).
+On the other hand, `{cpp}int const MAX = 100` - it's non-modifiable lvalue. Still we can't assign anything to it, but it's occupy memory and we can take pointer to it. 
 
 
 lvalue and rvalues helps to explain #references. References behavior more like pointers in C++. A reference yields an lvalue. A reference is essentially a pointer that's automatically dereferenced each time it's used. 
 
-| reference notation | equivalent pointer notation                                             |
-| ------------------ | ----------------------------------------------------------------------- |
-| `int &ri = i;`     | `int *const cpi = &i;`// `*const - can't change on what it's pointing ` |
-| `ri = 4;`          | `*cpi = 4;`                                                             |
-| `int j = ri + 2;`  | `int j = *cpi + 2;*                                                     |
+| reference notation     | equivalent pointer notation                                                  |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `{cpp}int &ri = i;`    | `{cpp}int *const cpi = &i;`// `*const - can't change on what it's pointing ` |
+| `{cpp}ri = 4;`         | `{cpp}*cpi = 4;`                                                             |
+| `{cpp}int j = ri + 2;` | `{cpp}int j = *cpi + 2;*`                                                    |
 Reason why pointers exist os to provide friendlier functions interfaces. More specifically, C++ has references so that overloaded operators can look just like built-in operators. 
 For example, this code works in C, but not compile in C++
 ```c++
@@ -120,7 +119,7 @@ Also,
 * const references parameter will accept an argument that's either const or non-const, 
 * non-const reference parameter will accept only a non-const argument 
 * when it appears in an expression, a reference to const yilds a non-modifiable lvalue. 
-* f(const T&) == f(T), since T is copy of object, thus modifying doesn't really change it. Passing by const ref might me more efficient than passing by value since making copy consume some time and memory. 
+* `{cpp}f(const T&) == f(T)`, since T is copy of object, thus modifying doesn't really change it. Passing by const ref might me more efficient than passing by value since making copy consume some time and memory. 
 
 References similar to pointers, yields to lvalue, which mean 
 ```c++
@@ -134,7 +133,7 @@ double &rd = i;  // can't bind
 There's an exception to the rule that a reference must bind to an lvalue of the referenced type: 
 > a "reference to `const T` can bind to an expression `x` that's not an lvalue of type `T` if there's a conversion from `x`'s type to `T`.
 
-Reason why this works - compiler creates a temporary object to hold a copy of `x` converted to `T`. For example `const double& rd = 3;`, when program execution reaches this declaration, program converts the value of 3 from int to double, creates a temporary double to hold converted result and binds `rd` to that temporary, when execution leaves scope, program destroy the temporary. This insure that `f(const& T) == f(T)` exactly the same. 
+Reason why this works - compiler creates a temporary object to hold a copy of `x` converted to `T`. For example `{cpp}const double& rd = 3;`, when program execution reaches this declaration, program converts the value of 3 from int to double, creates a temporary double to hold converted result and binds `rd` to that temporary, when execution leaves scope, program destroy the temporary. This insure that `{cpp}f(const& T) == f(T)` exactly the same. 
 
 
 Merging information together, we can switch to modern C++ definition: 
@@ -164,7 +163,7 @@ string& string::operator=(string&& other)
 withing operator=m other exists for the duration of the function, in tat context it's an lvalue. In general, rule: if it has a name, it's a lvalue. 
 
 It's safe to move from an lvalue only if it's expiring. 
-Compiler can't always recognize and expiring lvalue, so to help compiler - we need to convert it to an xvalue, in other words, convert it to an unnamed rvalue reference. That's what `std::move` does
+Compiler can't always recognize and expiring lvalue, so to help compiler - we need to convert it to an xvalue, in other words, convert it to an unnamed rvalue reference. That's what `{cpp}std::move` does
 
 
 Modern C++ value categories: 
