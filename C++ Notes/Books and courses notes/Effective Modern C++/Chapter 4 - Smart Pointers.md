@@ -190,7 +190,7 @@ At runtime, the arguments for a function must be evaluated before the function c
 + The expression `new Widget` must be evaluated.
 + The constructor for the `std::shared_ptr<Widget>` executed.
 + `computePriority` must run.
-Compilers are not required to generated code hat executes them in this order, so `computePriority` can executes between `std::shared_ptr` creating and emit exception.
+Compilers are not required to generated code that executes them in this order, so `computePriority` can executes between `std::shared_ptr` creating and emit exception.
 Using `std::make_shared` avoid this problem.
 
 A special feature of `std::make_shared` (compare to direct use of `new`) is improved efficiency. Using `std::make_shared` allows compilers to generate smaller, faster code that employs leaner data structures. 
