@@ -89,7 +89,7 @@ else
 
 The upshot of these various considerations is that using `std::async` with the default launch policy for a task is fine as long as the following conditions are fulfilled:
 + The task need not run concurrently with the thread calling `get` or `wait`.
-+ It doesn't matter which thread's `thread_local` variables are reed or written.
++ It doesn't matter which thread's `thread_local` variables are read or written.
 + Either there's a guarantee that `get` or `wait` will be called on the future returned by `std:async` or it's acceptable that the task may never execute.
 + Code using `wait_for` or `wait_until` takes the possibility of deferred status into account. 
 
@@ -112,13 +112,13 @@ Unjoinable `std::thread` objects include:
 One reason a `std::thread`'s joinability is important is that if the destructor for a joinable thread is invoked, execution of the program us terminated. 
 
 ```c++
-constexpr auuto tenMillion = 10'000'000;
+constexpr auto tenMillion = 10'000'000;
 
-bool doWork(std::function<bool(int)> filter, 
-            int maxValue = tenMillion)
+bool doWork(std::function<bool(int)> filter,
+            int maxVal = tenMillion)
 {
     std::vector<int> goodVals;
-    
+
     std::thread t([&filter, maxVal, &goodVals]
                  {
                      for (auto i = 0; i <= maxVal; ++i)
@@ -132,9 +132,9 @@ bool doWork(std::function<bool(int)> filter,
     {
         t.join();
         preformComputation(goodVals);
-        retur true;
+        return true;
     }
-    
+
     return false;
 }
 ```
@@ -317,7 +317,7 @@ void detect()
 }
 ```
 
-`std::future::share` member function transfers ownership of its shared state to the `std::shared_future` object produced by `share`. Each reacting thread needs its own copy of the `std::shared_future` that refers to the shared state, so the `std::shared_future` obtained from `shar` is captured by value by the lambdas running on the reacting threads
+`std::future::share` member function transfers ownership of its shared state to the `std::shared_future` object produced by `share`. Each reacting thread needs its own copy of the `std::shared_future` that refers to the shared state, so the `std::shared_future` obtained from `share` is captured by value by the lambdas running on the reacting threads
 ```c++
 std::promise<void> p;
 
