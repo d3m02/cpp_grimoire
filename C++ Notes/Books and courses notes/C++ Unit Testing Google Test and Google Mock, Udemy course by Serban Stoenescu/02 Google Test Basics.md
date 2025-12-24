@@ -77,7 +77,7 @@ As shown in table, for C-string used separate assertions. This is due to fact, t
 For `std::string` `ASSERT_EQ` works correctly (due to `operator==` overload). 
 
 ## Fixtures
-Fixtures allows to reuse the code in the setup and tear-down phases. Fixtures are classes derived from `testing::Test` classes. This class contain functions which can be overwritten for required behavior: 
+Fixtures allows to reuse the code in the setup and tear-down phases. Fixtures are classes derived from `::testing::Test` classes. This class contain functions which can be overwritten for required behavior: 
 + `{cpp}virtual void SetUp()` - function which executed before each test 
 + `{cpp}virtual void TearDown()` - function which executed after each test 
 + `{cpp}static void SetUpTestSuite()` - executed before Test suite
@@ -133,13 +133,13 @@ TEST_F(BankAccountTest, NegativeWithdraw) {
 
 ## Parameterized tests 
 Parameterized tests another way to reduce duplication in test by using templates. It's useful when in tests used same code but different values. 
-Parameterized tests inherited from `{cpp}testing::TestWithParam<T>`, for test body used `TEST_P()`. Function `{cpp}INSTANTIATE_TEST_SUITE_P(prefix, TestSuiteName, generator)` will generate tests from parameters. 
+Parameterized tests inherited from `{cpp}::testing::TestWithParam<T>`, for test body used `TEST_P()`. Function `{cpp}INSTANTIATE_TEST_SUITE_P(prefix, TestSuiteName, generator)` will generate tests from parameters. 
 Parameterized tests supports also generators: 
-+ `{cpp}testing::Range(T begin, T end, T step)` - generate values in a given range 
-+ `{cpp}testing::Values(...)` - set individual values 
-+ `{cpp}testing::ValuesIn(..)` - use containers through iterators 
-+ `{cpp}testing::Bool()` - generate `true` and `false`
-+ `{cpp}testing::Combine()` - combine generators mentioned above using Cartesian product 
++ `{cpp}::testing::Range(T begin, T end, T step)` - generate values in a given range 
++ `{cpp}::testing::Values(...)` - set individual values 
++ `{cpp}::testing::ValuesIn(..)` - use containers through iterators 
++ `{cpp}::testing::Bool()` - generate `true` and `false`
++ `{cpp}::testing::Combine()` - combine generators mentioned above using Cartesian product 
 
 With parameterized tests exists one downsides - it's not possible to defined with one test suite several different tests (lets say, happy path and out of range) - for different test should be created different test suite. As a solution, we can change `T` to `{cpp}std::tuple<int, bool>` where first parameter is value and second is expected result and set expectation with generator.
 
@@ -166,10 +166,10 @@ TEST_P(SensorValidatorTest, TestInRange) {
 
 INSTANTIATE_TEST_SUITE_P(HappyPath, 
                          SensorValidatorTest, 
-                         testing::Combine(testing::Range(5, 10, 1), 
-                                          testing::Values(true)));
+                         ::testing::Combine(testing::Range(5, 10, 1), 
+                                            ::testing::Values(true)));
 INSTANTIATE_TEST_SUITE_P(OutOfRange, 
                          SensorValidatorTest, 
-                         testing::Combine(testing::Values(-1, 0, 11), 
-                                          testing::Values(false)));
+                         ::testing::Combine(testing::Values(-1, 0, 11), 
+                                            ::testing::Values(false)));
 ```
